@@ -110,9 +110,31 @@
       transform: scale(1.05);
     }
 
+    .cart-actions {
+      text-align: center;
+      margin: 25px 0 10px;
+    }
+
+    .cart-actions button {
+      background-color: #27ae60;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+
+    .cart-actions button:hover {
+      background-color: #1e8449;
+    }
+
     .paypal-button {
       text-align: center;
-      margin: 40px 0;
+      margin: 20px 0 40px;
     }
 
     .paypal-button button {
@@ -208,6 +230,11 @@
   <p class="price">£130.00</p>
   <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
+  <!-- Add to Cart button -->
+  <div class="cart-actions">
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
   <div class="paypal-button">
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
@@ -253,6 +280,24 @@
     function nextImage() {
       currentIndex = (currentIndex + 1) % images.length;
       showImage(currentIndex);
+    }
+
+    // Cart logic
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const product = {
+        name: "Red Embroidered Jeans",
+        price: 130.00,
+        quantity: 1
+      };
+
+      // prevent duplicates
+      if (!cart.some(item => item.name === product.name)) {
+        cart.push(product);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert("Added to cart!");
     }
   </script>
 
