@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Samurai Embroidered Jeans — Rokichi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .images img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .description {
+      margin: 25px 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+    .price {
+      font-size: 22px;
+      font-weight: 600;
+      color: #27ae60;
+      margin-bottom: 20px;
+    }
+    .back-link {
+      display: block;
+      margin: 30px 0;
+      text-align: center;
+      color: #2980b9;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    form input[type="submit"] {
+      background-color: #ffc439;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: auto;
+    }
+    form input[type="submit"]:hover {
+      background-color: #e6b32d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Samurai Embroidered Jeans</h1>
+
+  <div class="images">
+    <img src="https://raw.githubusercontent.com/o-forster/o-forster.github.io/main/578ee13a-05ba-4b8f-a804-f241668bf34f.JPG" alt="Samurai Embroidered Jeans" />
+    <!-- Add more images like this below if needed -->
+  </div>
+
+  <div class="description">
+    <p>Super cool Japanese embroidered jeans featuring a detailed samurai girl design. These jeans are in great condition and feature beautiful stitching that stands out. Part of the divine retribution style — similar to Karakuri Tamashii pieces.</p>
+    <ul>
+      <li>Size: W32 L32</li>
+      <li>Condition: 9/10 - Very good</li>
+      <li>Origin: Japan</li>
+    </ul>
+  </div>
+
+  <p class="price">£110.00</p>
+
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick" />
+    <input type="hidden" name="business" value="retsrofracso@icloud.com" />
+    <input type="hidden" name="item_name" value="Samurai Embroidered Jeans" />
+    <input type="hidden" name="amount" value="110.00" />
+    <input type="hidden" name="currency_code" value="GBP" />
+    <input type="submit" value="Buy Now with PayPal" />
+  </form>
+
+  <a class="back-link" href="index.html">← Back to Shop</a>
+
+</body>
+</html>
 
