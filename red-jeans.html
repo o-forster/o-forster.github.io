@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Red Embroidered Jeans | Rokichi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- SEO & Social Sharing -->
+  <!-- SEO & Sharing -->
   <meta name="description" content="Red Embroidered Jeans — Karakuri Tamashii Japanese gods embroidery. Excellent condition, £130.00 from Rokichi." />
   <meta property="og:title" content="Red Embroidered Jeans | Rokichi" />
   <meta property="og:description" content="Karakuri Tamashii Japanese gods embroidery. Excellent condition. £130.00." />
   <meta property="og:image" content="https://i.imgur.com/cngu4MM.jpeg" />
   <meta property="og:type" content="product" />
-  <meta property="og:url" content="https://yourgithubusername.github.io/rokichi/red-jeans.html" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -24,9 +25,30 @@
       margin: auto;
     }
 
+    /* Cart button */
+    .cart-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2980b9;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+
+    .cart-link:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .brand-bubble {
@@ -39,24 +61,6 @@
       border-radius: 30px;
       margin-bottom: 8px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-
-    nav {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    nav a {
-      margin: 0 12px;
-      text-decoration: none;
-      color: #2980b9;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #1c5980;
-      text-decoration: underline;
     }
 
     h2 {
@@ -77,7 +81,7 @@
       text-align: center;
       font-size: 1rem;
       color: #555;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     /* Gallery Styles */
@@ -93,9 +97,8 @@
     }
 
     .main-gallery img {
-      width: 100%;
       height: 480px;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       margin: 0 10px;
@@ -137,12 +140,14 @@
       transform: scale(1.05);
     }
 
-    .paypal-button {
+    /* Action buttons */
+    .action-buttons {
       text-align: center;
-      margin: 40px 0;
+      margin: 30px 0;
     }
 
-    .paypal-button button {
+    .action-buttons button,
+    .action-buttons a {
       background-color: #2980b9;
       border: none;
       padding: 12px 25px;
@@ -151,17 +156,18 @@
       color: #fff;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      margin: 0 auto 15px;
+      display: block;
+      max-width: 220px;
+      text-decoration: none;
     }
 
-    .paypal-button button:hover {
+    .action-buttons button:hover,
+    .action-buttons a:hover {
       background-color: #1c5980;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
     footer {
@@ -175,25 +181,26 @@
       color: #2980b9;
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s ease;
     }
 
     a:hover {
       text-decoration: underline;
-      color: #1c5980;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-bottom: 40px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Cart button -->
+  <a href="cart.html" class="cart-link">🛒 Cart</a>
+
   <header>
     <div class="brand-bubble">Rokichi</div>
   </header>
-
-  <nav>
-    <a href="index.html">Products</a>
-    <a href="cart.html">Cart</a>
-  </nav>
 
   <h2>Red Embroidered Jeans</h2>
 
@@ -201,25 +208,29 @@
   <div class="gallery-container">
     <div class="main-gallery">
       <button class="arrow left" onclick="prevImage()" aria-label="Previous image">&#8592;</button>
-      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red embroidered jeans front view" />
+      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans front view" loading="lazy" />
       <button class="arrow right" onclick="nextImage()" aria-label="Next image">&#8594;</button>
     </div>
 
     <div class="thumbnails">
       <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Front view" onclick="showImage(0)" loading="lazy" />
       <img src="https://i.imgur.com/MOj6WDZ.jpeg" alt="Back view" onclick="showImage(1)" loading="lazy" />
-      <img src="https://i.imgur.com/9kQUOYY.jpeg" alt="Close-up embroidery" onclick="showImage(2)" loading="lazy" />
-      <img src="https://i.imgur.com/G4QL1ia.jpeg" alt="Pocket embroidery" onclick="showImage(3)" loading="lazy" />
-      <img src="https://i.imgur.com/fwL7Tys.jpeg" alt="Side detail" onclick="showImage(4)" loading="lazy" />
-      <img src="https://i.imgur.com/7vGVvuP.jpeg" alt="Full jeans flat lay" onclick="showImage(5)" loading="lazy" />
+      <img src="https://i.imgur.com/9kQUOYY.jpeg" alt="Embroidery close-up" onclick="showImage(2)" loading="lazy" />
+      <img src="https://i.imgur.com/G4QL1ia.jpeg" alt="Waist detail" onclick="showImage(3)" loading="lazy" />
+      <img src="https://i.imgur.com/fwL7Tys.jpeg" alt="Patch detail" onclick="showImage(4)" loading="lazy" />
+      <img src="https://i.imgur.com/7vGVvuP.jpeg" alt="Full back view" onclick="showImage(5)" loading="lazy" />
     </div>
   </div>
 
   <p class="price">£130.00</p>
   <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
-  <!-- PayPal Button -->
-  <div class="paypal-button">
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <!-- Add to Cart -->
+    <a href="cart.html">Add to Cart</a>
+
+    <!-- Buy Now -->
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
       <input type="hidden" name="business" value="retsrofracso@icloud.com">
@@ -269,3 +280,4 @@
 
 </body>
 </html>
+
