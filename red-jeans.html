@@ -282,7 +282,7 @@
       showImage(currentIndex);
     }
 
-    // Cart logic
+    // Cart logic (no popup)
     function addToCart() {
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       const product = {
@@ -291,18 +291,14 @@
         quantity: 1
       };
 
-      // prevent duplicates
       if (!cart.some(item => item.name === product.name)) {
         cart.push(product);
       }
 
       localStorage.setItem('cart', JSON.stringify(cart));
-      alert("Added to cart!");
     }
   </script>
 
 </body>
 </html>
-
-
 
