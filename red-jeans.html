@@ -6,6 +6,14 @@
   <title>Red Embroidered Jeans | Rokichi</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
+  <!-- SEO & Social Sharing -->
+  <meta name="description" content="Red Embroidered Jeans — Karakuri Tamashii Japanese gods embroidery. Excellent condition, £130.00 from Rokichi." />
+  <meta property="og:title" content="Red Embroidered Jeans | Rokichi" />
+  <meta property="og:description" content="Karakuri Tamashii Japanese gods embroidery. Excellent condition. £130.00." />
+  <meta property="og:image" content="https://i.imgur.com/cngu4MM.jpeg" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://yourgithubusername.github.io/rokichi/red-jeans.html" />
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -18,7 +26,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .brand-bubble {
@@ -31,6 +39,24 @@
       border-radius: 30px;
       margin-bottom: 8px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #1c5980;
+      text-decoration: underline;
     }
 
     h2 {
@@ -67,8 +93,9 @@
     }
 
     .main-gallery img {
+      width: 100%;
       height: 480px;
-      object-fit: contain;
+      object-fit: cover;
       border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       margin: 0 10px;
@@ -132,6 +159,11 @@
       background-color: #1c5980;
     }
 
+    .back-link {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
     footer {
       text-align: center;
       font-size: 13px;
@@ -143,15 +175,12 @@
       color: #2980b9;
       text-decoration: none;
       font-weight: 600;
+      transition: color 0.3s ease;
     }
 
     a:hover {
       text-decoration: underline;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
+      color: #1c5980;
     }
   </style>
 </head>
@@ -161,29 +190,35 @@
     <div class="brand-bubble">Rokichi</div>
   </header>
 
+  <nav>
+    <a href="index.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
   <h2>Red Embroidered Jeans</h2>
 
   <!-- Image Gallery -->
   <div class="gallery-container">
     <div class="main-gallery">
-      <button class="arrow left" onclick="prevImage()">&#8592;</button>
-      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Jeans" />
-      <button class="arrow right" onclick="nextImage()">&#8594;</button>
+      <button class="arrow left" onclick="prevImage()" aria-label="Previous image">&#8592;</button>
+      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red embroidered jeans front view" />
+      <button class="arrow right" onclick="nextImage()" aria-label="Next image">&#8594;</button>
     </div>
 
     <div class="thumbnails">
-      <img src="https://i.imgur.com/cngu4MM.jpeg" onclick="showImage(0)" />
-      <img src="https://i.imgur.com/MOj6WDZ.jpeg" onclick="showImage(1)" />
-      <img src="https://i.imgur.com/9kQUOYY.jpeg" onclick="showImage(2)" />
-      <img src="https://i.imgur.com/G4QL1ia.jpeg" onclick="showImage(3)" />
-      <img src="https://i.imgur.com/fwL7Tys.jpeg" onclick="showImage(4)" />
-      <img src="https://i.imgur.com/7vGVvuP.jpeg" onclick="showImage(5)" />
+      <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Front view" onclick="showImage(0)" loading="lazy" />
+      <img src="https://i.imgur.com/MOj6WDZ.jpeg" alt="Back view" onclick="showImage(1)" loading="lazy" />
+      <img src="https://i.imgur.com/9kQUOYY.jpeg" alt="Close-up embroidery" onclick="showImage(2)" loading="lazy" />
+      <img src="https://i.imgur.com/G4QL1ia.jpeg" alt="Pocket embroidery" onclick="showImage(3)" loading="lazy" />
+      <img src="https://i.imgur.com/fwL7Tys.jpeg" alt="Side detail" onclick="showImage(4)" loading="lazy" />
+      <img src="https://i.imgur.com/7vGVvuP.jpeg" alt="Full jeans flat lay" onclick="showImage(5)" loading="lazy" />
     </div>
   </div>
 
   <p class="price">£130.00</p>
   <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
+  <!-- PayPal Button -->
   <div class="paypal-button">
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
