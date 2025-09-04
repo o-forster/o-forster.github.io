@@ -102,11 +102,18 @@
       cursor: pointer;
       border-radius: 4px;
       opacity: 0.7;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease, border 0.3s ease;
+      border: 2px solid transparent;
     }
 
     .thumbnails img:hover {
       opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .thumbnails img.active {
+      opacity: 1;
+      border: 2px solid #9A2A2A; /* Rokichi red */
       transform: scale(1.05);
     }
 
@@ -266,10 +273,16 @@
 
     let currentIndex = 0;
     const mainImage = document.getElementById("mainImage");
+    const thumbnails = document.querySelectorAll(".thumbnails img");
 
     function showImage(index) {
       currentIndex = index;
       mainImage.src = images[index];
+
+      // Update active thumbnail
+      thumbnails.forEach((thumb, i) => {
+        thumb.classList.toggle("active", i === index);
+      });
     }
 
     function prevImage() {
@@ -281,6 +294,9 @@
       currentIndex = (currentIndex + 1) % images.length;
       showImage(currentIndex);
     }
+
+    // Initialize first thumbnail as active
+    thumbnails[0].classList.add("active");
 
     // Cart logic (no popup)
     function addToCart() {
@@ -301,4 +317,3 @@
 
 </body>
 </html>
-
