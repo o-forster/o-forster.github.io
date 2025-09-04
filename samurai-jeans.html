@@ -10,45 +10,100 @@
       font-family: 'Poppins', sans-serif;
       background: #f9f9f9;
       padding: 20px;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
+      position: relative;
+      color: #333;
     }
+
     h1 {
       text-align: center;
       font-size: 28px;
       margin-bottom: 20px;
+      color: #2c3e50;
     }
-    .images {
+
+    /* Gallery Styles */
+    .gallery-container {
+      margin: 30px 0;
+    }
+    .main-gallery {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
-    .images img {
+    .main-gallery img {
+      height: 480px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 0 10px;
       max-width: 100%;
-      border-radius: 8px;
     }
+    .arrow {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #888;
+      cursor: pointer;
+      padding: 10px;
+      transition: color 0.2s ease;
+    }
+    .arrow:hover {
+      color: #2c3e50;
+    }
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    .thumbnails img {
+      height: 100px;
+      cursor: pointer;
+      border-radius: 4px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .thumbnails img:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
     .description {
       margin: 25px 0;
       font-size: 1rem;
       line-height: 1.6;
       color: #444;
+      text-align: center;
     }
     .price {
       font-size: 22px;
       font-weight: 600;
       color: #27ae60;
-      margin-bottom: 20px;
-    }
-    .back-link {
-      display: block;
-      margin: 30px 0;
+      margin-bottom: 15px;
       text-align: center;
-      color: #2980b9;
-      font-weight: 600;
-      text-decoration: none;
     }
-    .back-link:hover {
-      text-decoration: underline;
+    .add-to-cart {
+      background-color: #2980b9;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      display: block;
+      margin: 10px auto 25px auto;
+      max-width: 300px;
+    }
+    .add-to-cart:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
     form input[type="submit"] {
       background-color: #ffc439;
@@ -69,15 +124,61 @@
     form input[type="submit"]:hover {
       background-color: #e6b32d;
     }
+    .back-link {
+      display: block;
+      margin: 30px 0;
+      text-align: center;
+      color: #2980b9;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Cart icon top right */
+    .cart-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .cart-icon a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.6rem;
+      position: relative;
+    }
+    .cart-icon a::after {
+      content: "🛒";
+      font-size: 1.6rem;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Cart icon -->
+  <div class="cart-icon">
+    <a href="cart.html"></a>
+  </div>
+
   <h1>Samurai Embroidered Jeans</h1>
 
-  <div class="images">
-    <img src="https://raw.githubusercontent.com/o-forster/o-forster.github.io/main/578ee13a-05ba-4b8f-a804-f241668bf34f.JPG" alt="Samurai Embroidered Jeans" />
-    <!-- Add more images like this below if needed -->
+  <!-- Image Gallery -->
+  <div class="gallery-container">
+    <div class="main-gallery">
+      <button class="arrow left" onclick="prevImage()">&#8592;</button>
+      <img id="mainImage" src="https://raw.githubusercontent.com/o-forster/o-forster.github.io/main/578ee13a-05ba-4b8f-a804-f241668bf34f.JPG" alt="Samurai Embroidered Jeans" />
+      <button class="arrow right" onclick="nextImage()">&#8594;</button>
+    </div>
+
+    <div class="thumbnails">
+      <img src="https://raw.githubusercontent.com/o-forster/o-forster.github.io/main/578ee13a-05ba-4b8f-a804-f241668bf34f.JPG" onclick="showImage(0)" />
+      <img src="https://i.imgur.com/XO8RAtw.jpeg" onclick="showImage(1)" />
+      <img src="https://i.imgur.com/PpoQWOF.jpeg" onclick="showImage(2)" />
+      <img src="https://i.imgur.com/DULg91F.jpeg" onclick="showImage(3)" />
+      <img src="https://i.imgur.com/UFiFiav.jpeg" onclick="showImage(4)" />
+      <img src="https://i.imgur.com/1p9nkKd.jpeg" onclick="showImage(5)" />
+    </div>
   </div>
 
   <div class="description">
@@ -91,6 +192,10 @@
 
   <p class="price">£110.00</p>
 
+  <!-- Add to Cart Button -->
+  <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+
+  <!-- Buy Now with PayPal -->
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
     <input type="hidden" name="cmd" value="_xclick" />
     <input type="hidden" name="business" value="retsrofracso@icloud.com" />
@@ -102,6 +207,49 @@
 
   <a class="back-link" href="index.html">← Back to Shop</a>
 
+  <script>
+    const images = [
+      "https://raw.githubusercontent.com/o-forster/o-forster.github.io/main/578ee13a-05ba-4b8f-a804-f241668bf34f.JPG",
+      "https://i.imgur.com/XO8RAtw.jpeg",
+      "https://i.imgur.com/PpoQWOF.jpeg",
+      "https://i.imgur.com/DULg91F.jpeg",
+      "https://i.imgur.com/UFiFiav.jpeg",
+      "https://i.imgur.com/1p9nkKd.jpeg"
+    ];
+
+    let currentIndex = 0;
+    const mainImage = document.getElementById("mainImage");
+
+    function showImage(index) {
+      currentIndex = index;
+      mainImage.src = images[index];
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }
+
+    function addToCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const exists = cart.find(item => item.name === "Samurai Embroidered Jeans");
+
+      if (!exists) {
+        cart.push({
+          name: "Samurai Embroidered Jeans",
+          price: 110.00
+        });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.location.href = "cart.html";
+    }
+  </script>
+
 </body>
 </html>
-
