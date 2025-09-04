@@ -1,12 +1,23 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rokichi — Japanese Denim & Vintage Clothing</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- SEO & Social Sharing -->
+  <meta name="description" content="Rokichi — Japanese denim and vintage clothing, specializing in embroidered jeans and rare finds." />
+  <meta property="og:title" content="Rokichi — Japanese Denim & Vintage Clothing" />
+  <meta property="og:description" content="Handpicked Japanese denim and vintage clothing. Shop embroidered jeans and rare pieces." />
+  <meta property="og:image" content="https://i.imgur.com/cngu4MM.jpeg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourgithubusername.github.io/rokichi/" />
 
   <style>
     body {
@@ -23,26 +34,25 @@
       margin-bottom: 40px;
     }
 
-.brand-bubble {
-  display: inline-block;
-  background-color: #9A2A2A; /* paler red */
-  color: white;
-  padding: 6px 18px; /* smaller bubble */
-  font-size: 2.2rem; /* larger text */
-  font-weight: 600;
-  border-radius: 30px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
+    .brand-bubble {
+      display: inline-block;
+      background-color: #9A2A2A; /* paler red */
+      color: white;
+      padding: 6px 18px;
+      font-size: 2.2rem;
+      font-weight: 600;
+      border-radius: 30px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
 
-.tagline {
-  font-size: 1rem;
-  color: #000; /* solid black */
-  margin-top: 4px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-}
-
+    .tagline {
+      font-size: 1rem;
+      color: #000;
+      margin-top: 4px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
 
     nav {
       margin-bottom: 40px;
@@ -58,7 +68,8 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover {
+    nav a:hover,
+    nav a.active {
       color: #1c5980;
       text-decoration: underline;
     }
@@ -88,8 +99,8 @@
     }
 
     .product img {
-      height: 320px;
-      width: auto;
+      height: auto;
+      max-width: 100%;
       border-radius: 6px;
       margin-bottom: 15px;
       display: block;
@@ -180,51 +191,52 @@
   </header>
 
   <nav>
-    <a href="#products">Products</a>
+    <a href="#products" class="active">Products</a>
     <a href="#about">About</a>
     <a href="#shipping">Shipping</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <section id="products">
-    <div class="product">
-     <a href="red-jeans.html">
-       <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans" />
-       <h3>Red Embroidered Jeans</h3>
-     </a>
-     <p class="price">£130.00</p>
-     <a href="red-jeans.html"><button>View Details</button></a>
-   </div>
+  <main>
+    <section id="products">
+      <div class="product">
+        <a href="red-jeans.html">
+          <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Red embroidered Japanese jeans with floral stitching" loading="lazy" />
+          <h3>Red Embroidered Jeans</h3>
+        </a>
+        <p class="price">£130.00</p>
+        <a href="red-jeans.html"><button>View Details</button></a>
+      </div>
 
+      <div class="product">
+        <a href="samurai-jeans.html">
+          <img src="https://i.imgur.com/NvHK5Jx.jpeg" alt="Samurai embroidered jeans with traditional Japanese design" loading="lazy" />
+          <h3>Samurai Embroidered Jeans</h3>
+        </a>
+        <p class="price">£110.00</p>
+        <a href="samurai-jeans.html"><button>View Details</button></a>
+      </div>
+    </section>
 
-    <div class="product">
-      <a href="samurai-jeans.html">
-        <img src="https://i.imgur.com/NvHK5Jx.jpeg" alt="Samurai Embroidered Jeans" />
-        <h3>Samurai Embroidered Jeans</h3>
-      </a>
-      <p class="price">£110.00</p>
-      <a href="samurai-jeans.html"><button>View Details</button></a>
-    </div>
-  </section>
+    <section id="about">
+      <h2>About Rokichi</h2>
+      <p>Based in London, Rokichi specializes in second-hand Japanese denim and unique vintage clothing. We handpick every piece for quality and character — especially rare and embroidered jeans with history.</p>
+    </section>
 
-  <section id="about">
-    <h2>About Rokichi</h2>
-    <p>Based in London, Rokichi specializes in second-hand Japanese denim and unique vintage clothing. We handpick every piece for quality and character — especially rare and embroidered jeans with history.</p>
-  </section>
+    <section id="shipping">
+      <h2>Shipping Information</h2>
+      <p>We ship within the UK using InPost or Evri. For international orders, we use Evri Global. Shipping times vary depending on destination but typically take 3–7 business days within the UK.</p>
+    </section>
 
-  <section id="shipping">
-    <h2>Shipping Information</h2>
-    <p>We ship within the UK using InPost or Evri. For international orders, we use Evri Global. Shipping times vary depending on destination but typically take 3–7 business days within the UK.</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:rokichihelp@yahoo.com">rokichihelp@yahoo.com</a></p>
-    <p>Follow us on 
-      <a href="https://www.instagram.com/oforster" target="_blank" rel="noopener">Instagram</a> and 
-      <a href="https://www.vinted.co.uk/member/237034045" target="_blank" rel="noopener">Vinted</a>.
-    </p>
-  </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:rokichihelp@yahoo.com">rokichihelp@yahoo.com</a></p>
+      <p>Follow us on 
+        <a href="https://www.instagram.com/oforster" target="_blank" rel="noopener">Instagram</a> and 
+        <a href="https://www.vinted.co.uk/member/237034045" target="_blank" rel="noopener">Vinted</a>.
+      </p>
+    </section>
+  </main>
 
   <footer>
     <p>© 2025 Rokichi. All rights reserved.</p>
@@ -232,7 +244,6 @@
 
 </body>
 </html>
-
 
 
 
