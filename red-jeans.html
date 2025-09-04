@@ -4,15 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Red Embroidered Jeans | Rokichi</title>
-
-  <!-- SEO & Sharing -->
-  <meta name="description" content="Red Embroidered Jeans — Karakuri Tamashii Japanese gods embroidery. Excellent condition, £130.00 from Rokichi." />
-  <meta property="og:title" content="Red Embroidered Jeans | Rokichi" />
-  <meta property="og:description" content="Karakuri Tamashii Japanese gods embroidery. Excellent condition. £130.00." />
-  <meta property="og:image" content="https://i.imgur.com/cngu4MM.jpeg" />
-  <meta property="og:type" content="product" />
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
@@ -23,27 +14,6 @@
       padding: 20px;
       max-width: 900px;
       margin: auto;
-    }
-
-    /* Cart button */
-    .cart-link {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #2980b9;
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      z-index: 1000;
-    }
-
-    .cart-link:hover {
-      background-color: #1c5980;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
     header {
@@ -81,7 +51,7 @@
       text-align: center;
       font-size: 1rem;
       color: #555;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     /* Gallery Styles */
@@ -140,7 +110,6 @@
       transform: scale(1.05);
     }
 
-    /* Action buttons */
     .action-buttons {
       text-align: center;
       margin: 30px 0;
@@ -191,11 +160,32 @@
       text-align: center;
       margin-bottom: 40px;
     }
+
+    /* Cart icon */
+    .cart-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2980b9;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+
+    .cart-link:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Cart button -->
+  <!-- Cart Icon -->
   <a href="cart.html" class="cart-link">🛒 Cart</a>
 
   <header>
@@ -207,30 +197,29 @@
   <!-- Image Gallery -->
   <div class="gallery-container">
     <div class="main-gallery">
-      <button class="arrow left" onclick="prevImage()" aria-label="Previous image">&#8592;</button>
-      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans front view" loading="lazy" />
-      <button class="arrow right" onclick="nextImage()" aria-label="Next image">&#8594;</button>
+      <button class="arrow left" onclick="prevImage()">&#8592;</button>
+      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Jeans" />
+      <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
 
     <div class="thumbnails">
-      <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Front view" onclick="showImage(0)" loading="lazy" />
-      <img src="https://i.imgur.com/MOj6WDZ.jpeg" alt="Back view" onclick="showImage(1)" loading="lazy" />
-      <img src="https://i.imgur.com/9kQUOYY.jpeg" alt="Embroidery close-up" onclick="showImage(2)" loading="lazy" />
-      <img src="https://i.imgur.com/G4QL1ia.jpeg" alt="Waist detail" onclick="showImage(3)" loading="lazy" />
-      <img src="https://i.imgur.com/fwL7Tys.jpeg" alt="Patch detail" onclick="showImage(4)" loading="lazy" />
-      <img src="https://i.imgur.com/7vGVvuP.jpeg" alt="Full back view" onclick="showImage(5)" loading="lazy" />
+      <img src="https://i.imgur.com/cngu4MM.jpeg" onclick="showImage(0)" />
+      <img src="https://i.imgur.com/MOj6WDZ.jpeg" onclick="showImage(1)" />
+      <img src="https://i.imgur.com/9kQUOYY.jpeg" onclick="showImage(2)" />
+      <img src="https://i.imgur.com/G4QL1ia.jpeg" onclick="showImage(3)" />
+      <img src="https://i.imgur.com/fwL7Tys.jpeg" onclick="showImage(4)" />
+      <img src="https://i.imgur.com/7vGVvuP.jpeg" onclick="showImage(5)" />
     </div>
   </div>
 
   <p class="price">£130.00</p>
   <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
-  <!-- Action Buttons -->
   <div class="action-buttons">
-    <!-- Add to Cart -->
-    <a href="cart.html">Add to Cart</a>
+    <!-- Add to Cart button -->
+    <button type="button" onclick="addToCart()">Add to Cart</button>
 
-    <!-- Buy Now -->
+    <!-- Buy Now button -->
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
       <input type="hidden" name="business" value="retsrofracso@icloud.com">
@@ -275,6 +264,28 @@
     function nextImage() {
       currentIndex = (currentIndex + 1) % images.length;
       showImage(currentIndex);
+    }
+
+    // Add to Cart function
+    function addToCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existing = cart.find(item => item.name === "Red Embroidered Jeans");
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          name: "Red Embroidered Jeans",
+          price: 130.00,
+          quantity: 1
+        });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Redirect to cart
+      window.location.href = "cart.html";
     }
   </script>
 
