@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rokichi — Japanese Denim & Vintage Clothing</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- SEO & Social Sharing -->
+  <!-- SEO & Sharing -->
   <meta name="description" content="Rokichi — Japanese denim and vintage clothing, specializing in embroidered jeans and rare finds." />
   <meta property="og:title" content="Rokichi — Japanese Denim & Vintage Clothing" />
   <meta property="og:description" content="Handpicked Japanese denim and vintage clothing. Shop embroidered jeans and rare pieces." />
   <meta property="og:image" content="https://i.imgur.com/cngu4MM.jpeg" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourgithubusername.github.io/rokichi/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -27,6 +26,27 @@
       padding: 20px;
       background: #faf9f7;
       color: #333;
+    }
+
+    /* Cart button */
+    .cart-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2980b9;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+
+    .cart-link:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
     header {
@@ -68,8 +88,7 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover,
-    nav a.active {
+    nav a:hover {
       color: #1c5980;
       text-decoration: underline;
     }
@@ -98,17 +117,15 @@
       box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
 
-.product img {
-  height: 320px;   /* all images same height */
-  width: auto;     /* width adjusts naturally */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 6px;
-  margin-bottom: 15px;
-}
-
-
+    .product img {
+      height: 320px;  /* same height */
+      width: auto;    /* keep proportions */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
 
     .product h3 {
       margin-top: 0;
@@ -183,28 +200,12 @@
       text-decoration: underline;
       color: #1c5980;
     }
-
-    /* Floating cart button */
-    .cart-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #27ae60;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-    }
-
-    .cart-button:hover {
-      background: #1e8449;
-    }
   </style>
 </head>
 <body>
+
+  <!-- Cart button -->
+  <a href="cart.html" class="cart-link">🛒 Cart</a>
 
   <header>
     <div class="brand-bubble">Rokichi</div>
@@ -212,85 +213,58 @@
   </header>
 
   <nav>
-    <a href="#products" class="active">Products</a>
+    <a href="#products">Products</a>
     <a href="#about">About</a>
     <a href="#shipping">Shipping</a>
     <a href="#contact">Contact</a>
-    <a href="cart.html">Cart</a>
   </nav>
 
-  <main>
-    <section id="products">
-      <div class="product">
-        <a href="red-jeans.html">
-          <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Red embroidered Japanese jeans with floral stitching" loading="lazy" />
-          <h3>Red Embroidered Jeans</h3>
-        </a>
-        <p class="price">£130.00</p>
-        <a href="red-jeans.html"><button>View Details</button></a>
-      </div>
+  <section id="products">
+    <div class="product">
+     <a href="red-jeans.html">
+       <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans, front view" loading="lazy" />
+       <h3>Red Embroidered Jeans</h3>
+     </a>
+     <p class="price">£130.00</p>
+     <a href="red-jeans.html"><button>View Details</button></a>
+   </div>
 
-      <div class="product">
-        <a href="samurai-jeans.html">
-          <img src="https://i.imgur.com/NvHK5Jx.jpeg" alt="Samurai embroidered jeans with traditional Japanese design" loading="lazy" />
-          <h3>Samurai Embroidered Jeans</h3>
-        </a>
-        <p class="price">£110.00</p>
-        <a href="samurai-jeans.html"><button>View Details</button></a>
-      </div>
-    </section>
+    <div class="product">
+      <a href="samurai-jeans.html">
+        <img src="https://i.imgur.com/NvHK5Jx.jpeg" alt="Samurai Embroidered Jeans, full view" loading="lazy" />
+        <h3>Samurai Embroidered Jeans</h3>
+      </a>
+      <p class="price">£110.00</p>
+      <a href="samurai-jeans.html"><button>View Details</button></a>
+    </div>
+  </section>
 
-    <section id="about">
-      <h2>About Rokichi</h2>
-      <p>Based in London, Rokichi specializes in second-hand Japanese denim and unique vintage clothing. We handpick every piece for quality and character — especially rare and embroidered jeans with history.</p>
-    </section>
+  <section id="about">
+    <h2>About Rokichi</h2>
+    <p>Based in London, Rokichi specializes in second-hand Japanese denim and unique vintage clothing. We handpick every piece for quality and character — especially rare and embroidered jeans with history.</p>
+  </section>
 
-    <section id="shipping">
-      <h2>Shipping Information</h2>
-      <p>We ship within the UK using InPost or Evri. For international orders, we use Evri Global. Shipping times vary depending on destination but typically take 3–7 business days within the UK.</p>
-    </section>
+  <section id="shipping">
+    <h2>Shipping Information</h2>
+    <p>We ship within the UK using InPost or Evri. For international orders, we use Evri Global. Shipping times vary depending on destination but typically take 3–7 business days within the UK.</p>
+  </section>
 
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:rokichihelp@yahoo.com">rokichihelp@yahoo.com</a></p>
-      <p>Follow us on 
-        <a href="https://www.instagram.com/oforster" target="_blank" rel="noopener">Instagram</a> and 
-        <a href="https://www.vinted.co.uk/member/237034045" target="_blank" rel="noopener">Vinted</a>.
-      </p>
-    </section>
-  </main>
-
-  <!-- Floating cart button -->
-  <a href="cart.html" class="cart-button">🛒 Cart</a>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:rokichihelp@yahoo.com">rokichihelp@yahoo.com</a></p>
+    <p>Follow us on 
+      <a href="https://www.instagram.com/oforster" target="_blank" rel="noopener">Instagram</a> and 
+      <a href="https://www.vinted.co.uk/member/237034045" target="_blank" rel="noopener">Vinted</a>.
+    </p>
+  </section>
 
   <footer>
     <p>© 2025 Rokichi. All rights reserved.</p>
   </footer>
 
-  <!-- Script: Auto-highlight nav links -->
-  <script>
-    const sections = document.querySelectorAll("main section");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 60;
-        if (pageYOffset >= sectionTop) {
-          current = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-          link.classList.add("active");
-        }
-      });
-    });
-  </script>
 </body>
 </html>
+
 
 
 
