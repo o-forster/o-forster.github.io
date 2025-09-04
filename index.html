@@ -36,7 +36,7 @@
 
     .brand-bubble {
       display: inline-block;
-      background-color: #9A2A2A; /* paler red */
+      background-color: #9A2A2A;
       color: white;
       padding: 6px 18px;
       font-size: 2.2rem;
@@ -181,6 +181,25 @@
       text-decoration: underline;
       color: #1c5980;
     }
+
+    /* Floating cart button */
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #27ae60;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    .cart-button:hover {
+      background: #1e8449;
+    }
   </style>
 </head>
 <body>
@@ -195,6 +214,7 @@
     <a href="#about">About</a>
     <a href="#shipping">Shipping</a>
     <a href="#contact">Contact</a>
+    <a href="cart.html">Cart</a>
   </nav>
 
   <main>
@@ -238,13 +258,37 @@
     </section>
   </main>
 
+  <!-- Floating cart button -->
+  <a href="cart.html" class="cart-button">🛒 Cart</a>
+
   <footer>
     <p>© 2025 Rokichi. All rights reserved.</p>
   </footer>
 
+  <!-- Script: Auto-highlight nav links -->
+  <script>
+    const sections = document.querySelectorAll("main section");
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 60;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
 
 
 
