@@ -59,31 +59,44 @@
       margin: 30px 0;
     }
 
-    .main-gallery {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+.main-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 600px; /* fixed based on widest image */
+  margin: 0 auto;
+}
 
-    .main-gallery img {
-      height: 480px;
-      object-fit: contain;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 0 10px;
-      max-width: 100%;
-    }
 
-    .arrow {
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: #888;
-      cursor: pointer;
-      padding: 10px;
-      transition: color 0.2s ease;
-    }
+.main-gallery img {
+  height: 480px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 100%;
+}
+
+.arrow {
+  position: absolute;   /* keeps arrows fixed */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.2s ease;
+}
+
+.arrow.left {
+  left: -50px; /* space to the left */
+}
+
+.arrow.right {
+  right: -50px; /* space to the right */
+}
 
     .arrow:hover {
       color: #2c3e50;
