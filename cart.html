@@ -71,6 +71,29 @@
       font-size: 1.2rem;
     }
 
+    .return-btn {
+      background: #2980b9;
+      color: white;
+      font-size: 1rem;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin: 40px auto 0;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      max-width: 220px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .return-btn:hover {
+      background: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
     footer {
       text-align: center;
       font-size: 13px;
@@ -85,6 +108,9 @@
 
   <div id="cart-container"></div>
 
+  <!-- Return to main site button -->
+  <a href="index.html" class="return-btn">← Return to Main Site</a>
+
   <footer>
     <p>© 2025 Rokichi. All rights reserved.</p>
   </footer>
@@ -93,26 +119,32 @@
     const cartContainer = document.getElementById('cart-container');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+    // Ensure uniqueness: if duplicates somehow exist, clean them
+    cart = cart.filter(
+      (item, index, self) =>
+        index === self.findIndex((t) => t.name === item.name)
+    );
+    localStorage.setItem('cart', JSON.stringify(cart));
+
     function renderCart() {
       if (cart.length === 0) {
         cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
         return;
       }
 
-      let html = '<table><tr><th>Item</th><th>Price</th><th>Qty</th><th>Remove</th></tr>';
+      let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
       cart.forEach((item, i) => {
         html += `
           <tr>
             <td>${item.name}</td>
             <td>£${item.price.toFixed(2)}</td>
-            <td>${item.quantity}</td>
             <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
           </tr>
         `;
       });
       html += '</table>';
 
-      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
 
       html += `<h3 style="text-align:center;">Total: £${total.toFixed(2)}</h3>`;
       html += `
@@ -123,7 +155,7 @@
           ${cart.map((item, i) => `
             <input type="hidden" name="item_name_${i + 1}" value="${item.name}">
             <input type="hidden" name="amount_${i + 1}" value="${item.price}">
-            <input type="hidden" name="quantity_${i + 1}" value="${item.quantity}">
+            <input type="hidden" name="quantity_${i + 1}" value="1">
           `).join('')}
           <button type="submit" class="checkout-btn">Checkout with PayPal</button>
         </form>
