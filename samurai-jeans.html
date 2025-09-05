@@ -33,7 +33,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
-    /* Cart link (consistent with other pages) */
+    /* Cart link */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -86,8 +86,8 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      width: 450px;   /* fixed width */
-      height: 500px;  /* fixed height */
+      width: 450px;
+      height: 500px;
       margin: 0 auto;
     }
 
@@ -112,13 +112,8 @@
       transition: color 0.2s ease;
     }
 
-    .arrow.left {
-      left: -50px; /* stay outside fixed gallery */
-    }
-
-    .arrow.right {
-      right: -50px; /* stay outside fixed gallery */
-    }
+    .arrow.left { left: -50px; }
+    .arrow.right { right: -50px; }
 
     .arrow:hover {
       color: #2c3e50;
@@ -145,20 +140,19 @@
       transform: scale(1.05);
     }
 
-    /* Active thumbnail highlight */
     .thumbnails img.active {
       opacity: 1;
-      border: 2px solid #9A2A2A; /* Rokichi red */
+      border: 2px solid #9A2A2A;
       transform: scale(1.05);
     }
 
-    .paypal-button {
+    .buttons {
       text-align: center;
       margin: 40px 0;
     }
 
-    .paypal-button button {
-      background-color: #2980b9;
+    .buttons button {
+      background-color: #27ae60;
       border: none;
       padding: 12px 25px;
       font-size: 1rem;
@@ -168,9 +162,18 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      margin: 10px;
     }
 
-    .paypal-button button:hover {
+    .buttons button:hover {
+      background-color: #1e8449;
+    }
+
+    .buttons form button {
+      background-color: #2980b9;
+    }
+
+    .buttons form button:hover {
       background-color: #1c5980;
     }
 
@@ -199,7 +202,6 @@
 </head>
 <body>
 
-  <!-- Cart button -->
   <a href="cart.html" class="cart-link">🛒 Cart</a>
 
   <header>
@@ -208,7 +210,6 @@
 
   <h2>Samurai Embroidered Jeans</h2>
 
-  <!-- Image Gallery -->
   <div class="gallery-container">
     <div class="main-gallery">
       <button class="arrow left" onclick="prevImage()">&#8592;</button>
@@ -232,7 +233,11 @@
     Divine retribution — similar to Karakuri pieces.<br><br>
   </p>
 
-  <div class="paypal-button">
+  <div class="buttons">
+    <!-- Add to Cart -->
+    <button onclick="addToCart()">Add to Cart</button>
+
+    <!-- PayPal -->
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
       <input type="hidden" name="business" value="retsrofracso@icloud.com">
@@ -285,6 +290,19 @@
 
     // Initialize first thumbnail as active
     thumbnails[0].classList.add("active");
+
+    // Add to Cart function
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({
+        name: "Samurai Embroidered Jeans",
+        price: 110.00,
+        image: images[0],
+        link: "samurai-jeans.html"
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added Samurai Embroidered Jeans to cart!");
+    }
   </script>
 
 </body>
