@@ -56,11 +56,11 @@
       color: #1c5980;
     }
 
-    .total {
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 10px;
+    #total-display {
+      font-weight: 700;      /* bolder total */
+      text-align: center;    /* centered */
+      font-size: 1.3rem;     /* slightly larger */
+      margin: 20px 0;
     }
 
     .empty {
@@ -127,7 +127,6 @@
 
   <h1>Checkout</h1>
 
-  <!-- SINGLE cart + shipping table -->
   <div id="cart-container"></div>
   <div id="shipping-container"></div>
   <div id="total-display"></div>
@@ -157,7 +156,7 @@
         cart.forEach(item => {
           html += `
             <tr>
-              <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a></td>
+              <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
               <td>£${item.price.toFixed(2)}</td>
             </tr>
           `;
@@ -175,7 +174,6 @@
         <p>${shippingInfo.address1}${shippingInfo.address2 ? ', ' + shippingInfo.address2 : ''}</p>
         <p>${shippingInfo.city}, ${shippingInfo.postcode}</p>
         <p>${shippingInfo.country}</p>
-        <p>Shipping: £${shippingCost.toFixed(2)}</p>
       `;
     }
 
@@ -189,5 +187,4 @@
 
 </body>
 </html>
-
 
