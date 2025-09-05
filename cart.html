@@ -382,7 +382,7 @@
 </div>
   
 <div id="total-display"></div>
-<button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+<a href="checkout.html" id="checkout-btn" class="checkout-btn">Proceed to Checkout</a>
 
 <a href="index.html" class="return-btn">← Return to Main Site</a>
 
@@ -401,28 +401,42 @@
   }));
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  function renderCart() {
-    if (cart.length === 0) {
-      cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
-      document.getElementById('total-display').innerText = '';
-      return;
-    }
-
-    let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
-    cart.forEach((item, i) => {
-      html += `
-        <tr>
-          <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a></td>
-          <td>${item.currency} £${item.price.toFixed(2)}</td>
-          <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
-        </tr>
-      `;
-    });
-    html += '</table>';
-    cartContainer.innerHTML = html;
-
-    updateTotal();
+function renderCart() {
+  if (cart.length === 0) {
+    cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    document.getElementById('total-display').innerText = '';
+    // Disable the checkout button if cart is empty
+    document.getElementById('checkout-btn').classList.add('disabled');
+    document.getElementById('checkout-btn').style.pointerEvents = 'none';
+    document.getElementById('checkout-btn').style.opacity = '0.5';
+    return;
   }
+
+  let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
+  cart.forEach((item, i) => {
+    html += `
+      <tr>
+        <td>
+          ${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a>
+        </td>
+        <td>${item.currency} £${item.price.toFixed(2)}</td>
+        <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
+      </tr>
+    `;
+  });
+  html += '</table>';
+
+  cartContainer.innerHTML = html;
+
+  updateTotal();
+
+  // Enable checkout button if cart has items
+  const checkoutBtn = document.getElementById('checkout-btn');
+  checkoutBtn.classList.remove('disabled');
+  checkoutBtn.style.pointerEvents = 'auto';
+  checkoutBtn.style.opacity = '1';
+}
+
 
   function removeItem(index) {
     cart.splice(index, 1);
