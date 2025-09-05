@@ -380,9 +380,9 @@
   <button id="calculate-shipping">Calculate Shipping</button>
   <p id="shipping-cost"></p>
 </div>
-
+  
 <div id="total-display"></div>
-<a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+<button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
 
 <a href="index.html" class="return-btn">← Return to Main Site</a>
 
@@ -457,6 +457,29 @@
     updateTotal();
   });
 
+document.querySelector('.checkout-btn').addEventListener('click', () => {
+  const address1 = document.getElementById('address1').value.trim();
+  const address2 = document.getElementById('address2').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const postcode = document.getElementById('postcode').value.trim();
+  const country = document.getElementById('country').value.trim();
+
+  if (!address1 || !city || !postcode || !country) {
+    alert('Please fill in all required shipping fields before proceeding.');
+    return;
+  }
+
+  const shippingInfo = { address1, address2, city, postcode, country };
+  localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
+
+  const shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
+  const total = cart.reduce((sum, item) => sum + item.price, 0) + shippingCost;
+  localStorage.setItem('cartTotalWithShipping', total);
+
+  window.location.href = 'checkout.html';
+});
+
+  
   renderCart();
 </script>
 
