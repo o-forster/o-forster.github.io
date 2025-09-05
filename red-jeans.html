@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Red Embroidered Jeans | Rokichi</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -88,17 +87,10 @@
       transition: color 0.2s ease;
     }
 
-    .arrow.left {
-      left: -50px;
-    }
+    .arrow.left { left: -50px; }
+    .arrow.right { right: -50px; }
 
-    .arrow.right {
-      right: -50px;
-    }
-
-    .arrow:hover {
-      color: #2c3e50;
-    }
+    .arrow:hover { color: #2c3e50; }
 
     .thumbnails {
       display: flex;
@@ -117,20 +109,16 @@
       border: 2px solid transparent;
     }
 
-    .thumbnails img:hover {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    .thumbnails img.active {
-      opacity: 1;
-      border: 2px solid #9A2A2A;
-      transform: scale(1.05);
-    }
+    .thumbnails img:hover { opacity: 1; transform: scale(1.05); }
+    .thumbnails img.active { opacity: 1; border: 2px solid #9A2A2A; transform: scale(1.05); }
 
     .cart-actions {
       text-align: center;
       margin: 25px 0 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
     .cart-actions button {
@@ -146,31 +134,7 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     }
 
-    .cart-actions button:hover {
-      background-color: #1e8449;
-    }
-
-    .checkout-btn-container {
-      text-align: center;
-      margin: 20px 0 40px;
-    }
-
-    .checkout-btn-container button {
-      background-color: #2980b9;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-
-    .checkout-btn-container button:hover {
-      background-color: #1c5980;
-    }
+    .cart-actions button:hover { background-color: #1e8449; }
 
     footer {
       text-align: center;
@@ -179,20 +143,10 @@
       margin-top: 40px;
     }
 
-    a {
-      color: #2980b9;
-      text-decoration: none;
-      font-weight: 600;
-    }
+    a { color: #2980b9; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+    .back-link { text-align: center; margin-bottom: 40px; }
 
     .cart-link {
       position: fixed;
@@ -209,15 +163,12 @@
       z-index: 1000;
     }
 
-    .cart-link:hover {
-      background-color: #1c5980;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    }
+    .cart-link:hover { background-color: #1c5980; box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
+
   </style>
 </head>
 <body>
 
-  <!-- Cart button -->
   <a href="cart.html" class="cart-link">🛒 Cart</a>
 
   <header>
@@ -226,7 +177,6 @@
 
   <h2>Red Embroidered Jeans</h2>
 
-  <!-- Image Gallery -->
   <div class="gallery-container">
     <div class="main-gallery">
       <button class="arrow left" onclick="prevImage()">&#8592;</button>
@@ -247,14 +197,10 @@
   <p class="price">£130.00</p>
   <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
-  <!-- Add to Cart button -->
+  <!-- Add to Cart & Checkout Buttons -->
   <div class="cart-actions">
     <button onclick="addToCart()">Add to Cart</button>
-  </div>
-
-  <!-- Go to Checkout button -->
-  <div class="checkout-btn-container">
-    <button onclick="addToCartAndCheckout()">Go to Checkout</button>
+    <button onclick="checkoutSingleItem()">Go to Checkout</button>
   </div>
 
   <div class="back-link">
@@ -265,7 +211,7 @@
     <p>© 2025 Rokichi. All rights reserved.</p>
   </footer>
 
- <script>
+<script>
   const images = [
     "https://i.imgur.com/cngu4MM.jpeg",
     "https://i.imgur.com/MOj6WDZ.jpeg",
@@ -277,11 +223,12 @@
 
   let currentIndex = 0;
   const mainImage = document.getElementById("mainImage");
+  const thumbnails = document.querySelectorAll(".thumbnails img");
 
   function showImage(index) {
     currentIndex = index;
     mainImage.src = images[index];
-    document.querySelectorAll(".thumbnails img").forEach((thumb, i) => {
+    thumbnails.forEach((thumb, i) => {
       thumb.classList.toggle("active", i === index);
     });
   }
@@ -296,11 +243,12 @@
     showImage(currentIndex);
   }
 
-  // --- Add to Cart with duplicate prevention ---
+  thumbnails[0].classList.add("active");
+
+  // Add to Cart (prevent duplicates)
   function addToCart() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const exists = cart.some(item => item.name === "Red Embroidered Jeans");
-    if (!exists) {
+    if (!cart.some(item => item.name === "Red Embroidered Jeans")) {
       cart.push({
         name: "Red Embroidered Jeans",
         price: 130.00,
@@ -310,16 +258,21 @@
     }
   }
 
-  // --- Add to Cart and Go to Checkout ---
-  function addToCartAndCheckout() {
-    addToCart(); // ensure item is added only once
+  // Go to checkout only this item, keep main cart intact
+  function checkoutSingleItem() {
+    const singleItemCart = [{
+      name: "Red Embroidered Jeans",
+      price: 130.00,
+      url: "red-jeans.html"
+    }];
+    localStorage.setItem('checkoutTemp', JSON.stringify(singleItemCart));
     window.location.href = "checkout.html";
   }
 
-  // Initialize first thumbnail as active
   showImage(0);
 </script>
 
 </body>
 </html>
+
 
