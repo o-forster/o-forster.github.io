@@ -312,13 +312,18 @@
     thumbnails[0].classList.add("active");
 
     // Cart logic (no popup)
-    function addToCart() {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const product = {
-        name: "Red Embroidered Jeans",
-        price: 130.00,
-        quantity: 1
-      };
+   function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (!cart.some(item => item.name === "Red Embroidered Jeans")) {
+    cart.push({
+      name: "Red Embroidered Jeans",
+      price: 130,
+      url: "red-jeans.html"
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+}
+
 
       if (!cart.some(item => item.name === product.name)) {
         cart.push(product);
