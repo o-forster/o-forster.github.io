@@ -36,6 +36,13 @@
       background-color: #f0f0f0;
     }
 
+    td img {
+      height: 60px;
+      border-radius: 6px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
     td a {
       color: #2980b9;
       font-weight: 600;
@@ -118,7 +125,8 @@
 
   <h1>Your Cart</h1>
 
-  <div id="cart-container"></div>
+  <!-- aria-live makes cart updates accessible -->
+  <div id="cart-container" aria-live="polite"></div>
 
   <!-- Return to main site button -->
   <a href="index.html" class="return-btn">← Return to Main Site</a>
@@ -131,11 +139,13 @@
     const cartContainer = document.getElementById('cart-container');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Ensure uniqueness by product name
-    cart = cart.filter(
-      (item, index, self) =>
-        index === self.findIndex((t) => t.name === item.name)
-    );
+    // Ensure price is a number and add default currency (GBP)
+    cart = cart.map(item => ({
+      ...item,
+      price: Number(item.price) || 0,
+      currency: item.currency || "GBP"
+    }));
+
     localStorage.setItem('cart', JSON.stringify(cart));
 
     function renderCart() {
@@ -148,8 +158,11 @@
       cart.forEach((item, i) => {
         html += `
           <tr>
-            <td><a href="${item.url}">${item.name}</a></td>
-            <td>£${item.price.toFixed(2)}</td>
+            <td>
+              ${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}
+              <a href="${item.url}">${item.name}</a>
+            </td>
+            <td>${item.currency} £${item.price.toFixed(2)}</td>
             <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
           </tr>
         `;
@@ -167,6 +180,7 @@
           ${cart.map((item, i) => `
             <input type="hidden" name="item_name_${i + 1}" value="${item.name}">
             <input type="hidden" name="amount_${i + 1}" value="${item.price}">
+            <input type="hidden" name="currency_code" value="${item.currency}">
             <input type="hidden" name="quantity_${i + 1}" value="1">
           `).join('')}
           <button type="submit" class="checkout-btn">Checkout with PayPal</button>
@@ -186,3 +200,4 @@
   </script>
 </body>
 </html>
+
