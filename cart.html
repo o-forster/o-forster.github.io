@@ -393,51 +393,41 @@
 
 <script>
   const cartContainer = document.getElementById('cart-container');
+  const checkoutBtn = document.getElementById('checkout-btn');
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+  // Ensure price is a number and add default currency (GBP)
   cart = cart.map(item => ({
     ...item,
     price: Number(item.price) || 0,
     currency: item.currency || "GBP"
   }));
+
   localStorage.setItem('cart', JSON.stringify(cart));
 
-function renderCart() {
-  if (cart.length === 0) {
-    cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
-    document.getElementById('total-display').innerText = '';
-    // Disable the checkout button if cart is empty
-    document.getElementById('checkout-btn').classList.add('disabled');
-    document.getElementById('checkout-btn').style.pointerEvents = 'none';
-    document.getElementById('checkout-btn').style.opacity = '0.5';
-    return;
+  function renderCart() {
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
+    cart.forEach((item, i) => {
+      html += `
+        <tr>
+          <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a></td>
+          <td>${item.currency} £${item.price.toFixed(2)}</td>
+          <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
+        </tr>
+      `;
+    });
+    html += '</table>';
+    cartContainer.innerHTML = html;
+
+    updateTotal();
+    checkoutBtn.disabled = false;
   }
-
-  let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
-  cart.forEach((item, i) => {
-    html += `
-      <tr>
-        <td>
-          ${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a>
-        </td>
-        <td>${item.currency} £${item.price.toFixed(2)}</td>
-        <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
-      </tr>
-    `;
-  });
-  html += '</table>';
-
-  cartContainer.innerHTML = html;
-
-  updateTotal();
-
-  // Enable checkout button if cart has items
-  const checkoutBtn = document.getElementById('checkout-btn');
-  checkoutBtn.classList.remove('disabled');
-  checkoutBtn.style.pointerEvents = 'auto';
-  checkoutBtn.style.opacity = '1';
-}
-
 
   function removeItem(index) {
     cart.splice(index, 1);
@@ -467,35 +457,29 @@ function renderCart() {
     else shipping = 39.99;
 
     localStorage.setItem('shippingCost', shipping);
-    document.getElementById('shipping-cost').innerText = `Shipping: £${shipping.toFixed(2)}`;
+    localStorage.setItem('shippingInfo', JSON.stringify({
+      address1: document.getElementById('address1').value,
+      address2: document.getElementById('address2').value,
+      city: document.getElementById('city').value,
+      postcode: document.getElementById('postcode').value,
+      country: country
+    }));
 
+    document.getElementById('shipping-cost').innerText = `Shipping: £${shipping.toFixed(2)}`;
     updateTotal();
   });
 
-document.querySelector('.checkout-btn').addEventListener('click', () => {
-  const address1 = document.getElementById('address1').value.trim();
-  const address2 = document.getElementById('address2').value.trim();
-  const city = document.getElementById('city').value.trim();
-  const postcode = document.getElementById('postcode').value.trim();
-  const country = document.getElementById('country').value.trim();
-
-  if (!address1 || !city || !postcode || !country) {
-    alert('Please fill in all required shipping fields before proceeding.');
-    return;
-  }
-
-  const shippingInfo = { address1, address2, city, postcode, country };
-  localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
-
-  const shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
-  const total = cart.reduce((sum, item) => sum + item.price, 0) + shippingCost;
-  localStorage.setItem('cartTotalWithShipping', total);
-
-  window.location.href = 'checkout.html';
-});
-
-  
   renderCart();
+
+  // Pre-fill shipping form if info exists
+  const savedShipping = JSON.parse(localStorage.getItem('shippingInfo'));
+  if (savedShipping) {
+    if (savedShipping.address1) document.getElementById('address1').value = savedShipping.address1;
+    if (savedShipping.address2) document.getElementById('address2').value = savedShipping.address2;
+    if (savedShipping.city) document.getElementById('city').value = savedShipping.city;
+    if (savedShipping.postcode) document.getElementById('postcode').value = savedShipping.postcode;
+    if (savedShipping.country) document.getElementById('country').value = savedShipping.country;
+  }
 </script>
 
 </body>
