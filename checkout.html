@@ -20,33 +20,53 @@
       margin-bottom: 30px;
     }
 
-    .checkout-option {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
       text-align: center;
     }
 
-    .checkout-option h2 {
-      margin-bottom: 15px;
+    th {
+      background-color: #f0f0f0;
     }
 
-    .paypal-btn {
-      background: #ffc439;
-      color: #111;
-      font-size: 1rem;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    td a {
+      color: #2980b9;
       font-weight: 600;
-      transition: background-color 0.3s ease;
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
 
-    .paypal-btn:hover {
-      background: #ffb347;
+    td a:hover {
+      text-decoration: underline;
+      color: #1c5980;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #777;
+      margin: 40px 0;
     }
 
     .return-btn {
@@ -84,22 +104,12 @@
 
   <h1>Checkout</h1>
 
-  <div class="checkout-option">
-    <h2>Pay with PayPal</h2>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-      <input type="hidden" name="cmd" value="_cart">
-      <input type="hidden" name="upload" value="1">
-      <input type="hidden" name="business" value="retsrofracso@icloud.com">
-      <div id="paypal-items"></div>
-      <button type="submit" class="paypal-btn">Pay with PayPal</button>
-    </form>
-  </div>
+  <div id="order-summary" aria-live="polite"></div>
 
-  <div class="checkout-option">
-    <h2>Other Payment Methods</h2>
-    <p>Coming soon: Credit card, Klarna, Apple Pay, etc.</p>
-  </div>
+  <h2>Payment Options</h2>
+  <p>PayPal will be available here as the first payment method. More options will be added later.</p>
 
+  <!-- Return button -->
   <a href="cart.html" class="return-btn">← Back to Cart</a>
 
   <footer>
@@ -107,18 +117,30 @@
   </footer>
 
   <script>
-    // Load cart from localStorage
+    const orderSummary = document.getElementById('order-summary');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Insert PayPal hidden inputs
-    const paypalItemsDiv = document.getElementById('paypal-items');
-    paypalItemsDiv.innerHTML = cart.map((item, i) => `
-      <input type="hidden" name="item_name_${i + 1}" value="${item.name}">
-      <input type="hidden" name="amount_${i + 1}" value="${Number(item.price).toFixed(2)}">
-      <input type="hidden" name="currency_code" value="${item.currency || 'GBP'}">
-      <input type="hidden" name="quantity_${i + 1}" value="1">
-    `).join('');
+    if (cart.length === 0) {
+      orderSummary.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    } else {
+      let html = '<table><tr><th>Item</th><th>Price</th></tr>';
+      cart.forEach(item => {
+        html += `
+          <tr>
+            <td><a href="${item.url}">${item.name}</a></td>
+            <td>£${item.price.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+      html += '</table>';
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      html += `<p class="total">Total: £${total.toFixed(2)}</p>`;
+
+      orderSummary.innerHTML = html;
+    }
   </script>
 
 </body>
 </html>
+
