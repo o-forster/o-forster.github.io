@@ -141,19 +141,25 @@
   </footer>
 
   <script>
-    // Get cart and shipping info from localStorage
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Check if a single-item checkout exists
+    let checkoutCart = JSON.parse(localStorage.getItem('checkoutTemp'));
+    if (checkoutCart) {
+      localStorage.removeItem('checkoutTemp'); // Clear after reading
+    } else {
+      checkoutCart = JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
     let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
     let shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
 
-    // Display cart items
     const cartContainer = document.getElementById('cart-container');
+
     if (cartContainer) {
-      if (cart.length === 0) {
+      if (checkoutCart.length === 0) {
         cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
       } else {
         let html = '<table><tr><th>Item</th><th>Price</th></tr>';
-        cart.forEach(item => {
+        checkoutCart.forEach(item => {
           html += `
             <tr>
               <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
@@ -180,7 +186,7 @@
     // Display total including shipping
     const totalContainer = document.getElementById('total-display');
     if (totalContainer) {
-      const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const cartTotal = checkoutCart.reduce((sum, item) => sum + item.price, 0);
       totalContainer.innerText = `Total (including shipping): £${(cartTotal + shippingCost).toFixed(2)}`;
     }
   </script>
