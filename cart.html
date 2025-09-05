@@ -131,7 +131,7 @@
     const cartContainer = document.getElementById('cart-container');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Ensure uniqueness: if duplicates somehow exist, clean them
+    // Ensure uniqueness by product name
     cart = cart.filter(
       (item, index, self) =>
         index === self.findIndex((t) => t.name === item.name)
@@ -146,11 +146,9 @@
 
       let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
       cart.forEach((item, i) => {
-        // Support both "url" and "link"
-        const url = item.url || item.link || 'index.html';
         html += `
           <tr>
-            <td><a href="${url}">${item.name}</a></td>
+            <td><a href="${item.url}">${item.name}</a></td>
             <td>£${item.price.toFixed(2)}</td>
             <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
           </tr>
