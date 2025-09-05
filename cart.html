@@ -15,45 +15,19 @@
       color: #333;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+    h1 { text-align: center; margin-bottom: 30px; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
-    }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
 
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-      text-align: center;
-    }
+    th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: center; }
 
-    th {
-      background-color: #f0f0f0;
-    }
+    th { background-color: #f0f0f0; }
 
-    td img {
-      height: 60px;
-      border-radius: 6px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
+    td img { height: 60px; border-radius: 6px; margin-right: 8px; vertical-align: middle; }
 
-    td a {
-      color: #2980b9;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+    td a { color: #2980b9; font-weight: 600; text-decoration: none; transition: color 0.3s ease; }
 
-    td a:hover {
-      text-decoration: underline;
-      color: #1c5980;
-    }
+    td a:hover { text-decoration: underline; color: #1c5980; }
 
     .remove-btn {
       background: #c0392b;
@@ -64,9 +38,7 @@
       cursor: pointer;
     }
 
-    .remove-btn:hover {
-      background: #a93226;
-    }
+    .remove-btn:hover { background: #a93226; }
 
     .shipping-box {
       border: 1px solid #ddd;
@@ -76,9 +48,7 @@
       background: #f9f9f9;
     }
 
-    .shipping-box h3 {
-      margin-top: 0;
-    }
+    .shipping-box h3 { margin-top: 0; }
 
     .shipping-box input, .shipping-box select {
       width: 100%;
@@ -100,16 +70,9 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .shipping-box button:hover {
-      background:#1e8449;
-    }
+    .shipping-box button:hover { background:#1e8449; }
 
-    #total-display {
-      text-align: center;
-      font-weight: 600;
-      margin: 15px 0;
-      font-size: 1.2rem;
-    }
+    #total-display { text-align: center; font-weight: 600; margin: 15px 0; font-size: 1.2rem; }
 
     .checkout-btn {
       background: #27ae60;
@@ -118,7 +81,6 @@
       padding: 12px 25px;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
       display: block;
       margin: 0 auto 40px auto;
       max-width: 250px; 
@@ -129,15 +91,18 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .checkout-btn:hover {
-      background: #1e8449;
+    .checkout-btn:hover { background: #1e8449; }
+
+    /* Disabled state for checkout link */
+    .checkout-btn.disabled {
+      pointer-events: none;
+      background: #ccc;
+      color: #666;
+      box-shadow: none;
+      cursor: not-allowed;
     }
 
-    .empty {
-      text-align: center;
-      color: #777;
-      font-size: 1.2rem;
-    }
+    .empty { text-align: center; color: #777; font-size: 1.2rem; }
 
     .return-btn {
       background: #2980b9;
@@ -162,12 +127,7 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
-    footer {
-      text-align: center;
-      font-size: 13px;
-      color: #999;
-      margin-top: 60px;
-    }
+    footer { text-align: center; font-size: 13px; color: #999; margin-top: 60px; }
   </style>
 </head>
 <body>
@@ -183,8 +143,8 @@
   <input type="text" id="city" placeholder="City" required />
   <input type="text" id="postcode" placeholder="Postcode" required />
   <select id="country" class="shipping-input" required>
-  <option value="">Select a country...</option>
-  <option value="Afghanistan">Afghanistan</option>
+    <option value="">Select a country...</option>
+      <option value="Afghanistan">Afghanistan</option>
   <option value="Albania">Albania</option>
   <option value="Algeria">Algeria</option>
   <option value="Andorra">Andorra</option>
@@ -377,14 +337,13 @@
   <option value="Yemen">Yemen</option>
   <option value="Zambia">Zambia</option>
   <option value="Zimbabwe">Zimbabwe</option>
-</select>
+  </select>
   <button id="calculate-shipping">Calculate Shipping</button>
   <p id="shipping-cost"></p>
 </div>
-  
+
 <div id="total-display"></div>
 <a href="checkout.html" id="checkout-btn" class="checkout-btn">Proceed to Checkout</a>
-
 <a href="index.html" class="return-btn">← Return to Main Site</a>
 
 <footer>
@@ -396,43 +355,25 @@
   const checkoutBtn = document.getElementById('checkout-btn');
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Ensure price is a number and add default currency (GBP)
-  cart = cart.map(item => ({
-    ...item,
-    price: Number(item.price) || 0,
-    currency: item.currency || "GBP"
-  }));
-
+  // Ensure price is a number
+  cart = cart.map(item => ({ ...item, price: Number(item.price) || 0, currency: item.currency || "GBP" }));
   localStorage.setItem('cart', JSON.stringify(cart));
-
-  function updateCheckoutButton() {
-    if (cart.length === 0) {
-      checkoutBtn.classList.add('disabled');
-    } else {
-      checkoutBtn.classList.remove('disabled');
-    }
-  }
 
   function renderCart() {
     if (cart.length === 0) {
       cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
-      updateCheckoutButton();
-      return;
-    }
-
-    let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
-    cart.forEach((item, i) => {
-      html += `
-        <tr>
+    } else {
+      let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
+      cart.forEach((item, i) => {
+        html += `<tr>
           <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a></td>
           <td>${item.currency} £${item.price.toFixed(2)}</td>
           <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
-        </tr>
-      `;
-    });
-    html += '</table>';
-    cartContainer.innerHTML = html;
-
+        </tr>`;
+      });
+      html += '</table>';
+      cartContainer.innerHTML = html;
+    }
     updateTotal();
     updateCheckoutButton();
   }
@@ -449,6 +390,11 @@
     document.getElementById('total-display').innerText = `Total: £${total.toFixed(2)}`;
   }
 
+  function updateCheckoutButton() {
+    if (cart.length === 0) checkoutBtn.classList.add('disabled');
+    else checkoutBtn.classList.remove('disabled');
+  }
+
   document.getElementById('calculate-shipping').addEventListener('click', () => {
     const country = document.getElementById('country').value.trim();
     if (!country || !document.getElementById('address1').value || !document.getElementById('city').value || !document.getElementById('postcode').value) {
@@ -458,7 +404,6 @@
 
     let shipping = 0;
     const euCountries = ["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"];
-
     if (country === "United Kingdom") shipping = 3.99;
     else if (euCountries.includes(country)) shipping = 9.99;
     else if (country === "United States") shipping = 24.99;
@@ -470,7 +415,7 @@
       address2: document.getElementById('address2').value,
       city: document.getElementById('city').value,
       postcode: document.getElementById('postcode').value,
-      country: country
+      country
     }));
 
     document.getElementById('shipping-cost').innerText = `Shipping: £${shipping.toFixed(2)}`;
@@ -488,9 +433,6 @@
     if (savedShipping.postcode) document.getElementById('postcode').value = savedShipping.postcode;
     if (savedShipping.country) document.getElementById('country').value = savedShipping.country;
   }
-
-  // Initial button state
-  updateCheckoutButton();
 </script>
 
 </body>
