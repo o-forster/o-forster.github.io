@@ -76,7 +76,6 @@
       line-height: 1.6;
     }
 
-    /* Gallery Styles */
     .gallery-container {
       margin: 30px 0;
     }
@@ -114,7 +113,6 @@
 
     .arrow.left { left: -50px; }
     .arrow.right { right: -50px; }
-
     .arrow:hover { color: #2c3e50; }
 
     .thumbnails {
@@ -134,20 +132,16 @@
       border: 2px solid transparent;
     }
 
-    .thumbnails img:hover {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    .thumbnails img.active {
-      opacity: 1;
-      border: 2px solid #9A2A2A;
-      transform: scale(1.05);
-    }
+    .thumbnails img:hover { opacity: 1; transform: scale(1.05); }
+    .thumbnails img.active { opacity: 1; border: 2px solid #9A2A2A; transform: scale(1.05); }
 
     .cart-actions {
       text-align: center;
-      margin: 25px 0 40px;
+      margin: 25px 0 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
     .cart-actions button {
@@ -161,17 +155,9 @@
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-      display: block;
-      margin: 0 auto;
     }
 
-    .cart-actions button:hover {
-      background-color: #1e8449;
-    }
-
-    .cart-actions button + button {
-      margin-top: 15px;
-    }
+    .cart-actions button:hover { background-color: #1e8449; }
 
     footer {
       text-align: center;
@@ -180,20 +166,9 @@
       margin-top: 40px;
     }
 
-    a {
-      color: #2980b9;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+    a { color: #2980b9; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    .back-link { text-align: center; margin-bottom: 40px; }
   </style>
 </head>
 <body>
@@ -229,9 +204,10 @@
     Divine retribution — similar to Karakuri pieces.
   </p>
 
+  <!-- Add to Cart & Checkout Buttons -->
   <div class="cart-actions">
     <button onclick="addToCart()">Add to Cart</button>
-    <button onclick="addToCartAndCheckout()">Go to Checkout</button>
+    <button onclick="checkoutSingleItem()">Go to Checkout</button>
   </div>
 
   <div class="back-link">
@@ -276,24 +252,33 @@
 
     thumbnails[0].classList.add("active");
 
-    // Add to Cart (no duplicates)
+    // Add to Cart (prevent duplicates)
     function addToCart() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (!cart.some(item => item.name === "Samurai Embroidered Jeans")) {
         cart.push({
           name: "Samurai Embroidered Jeans",
           price: 110.00,
           url: "samurai-jeans.html"
         });
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
     }
 
-    function addToCartAndCheckout() {
-      addToCart();
+    // Go to checkout only this item, keep main cart intact
+    function checkoutSingleItem() {
+      const singleItemCart = [{
+        name: "Samurai Embroidered Jeans",
+        price: 110.00,
+        url: "samurai-jeans.html"
+      }];
+      localStorage.setItem('checkoutTemp', JSON.stringify(singleItemCart));
       window.location.href = "checkout.html";
     }
+
+    showImage(0);
   </script>
 
 </body>
 </html>
+
