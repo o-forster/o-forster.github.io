@@ -33,7 +33,6 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
-    /* Cart link */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -76,7 +75,6 @@
       line-height: 1.6;
     }
 
-    /* Gallery Styles */
     .gallery-container {
       margin: 30px 0;
     }
@@ -86,19 +84,18 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      max-width: 450px;   /* keeps gallery narrow */
-      height: 480px;      /* fixes height so text below doesn’t move */
+      max-width: 450px;
+      height: 480px;
       margin: 0 auto;
     }
 
-.main-gallery img {
-  height: 480px;
-  object-fit: contain;
-  border-radius: 0;   /* no rounded edges */
-  box-shadow: none;   /* no shadow */
-  max-width: 100%;
-}
-
+    .main-gallery img {
+      height: 480px;
+      object-fit: contain;
+      border-radius: 0;
+      box-shadow: none;
+      max-width: 100%;
+    }
 
     .arrow {
       position: absolute;
@@ -115,10 +112,7 @@
 
     .arrow.left { left: -50px; }
     .arrow.right { right: -50px; }
-
-    .arrow:hover {
-      color: #2c3e50;
-    }
+    .arrow:hover { color: #2c3e50; }
 
     .thumbnails {
       display: flex;
@@ -167,17 +161,30 @@
       margin: 10px;
     }
 
-    .buttons button:hover {
-      background-color: #1e8449;
+    .buttons button:hover { background-color: #1e8449; }
+
+    .buttons form button { background-color: #2980b9; }
+    .buttons form button:hover { background-color: #1c5980; }
+
+    .checkout-btn-container {
+      text-align: center;
+      margin: 20px 0 40px;
     }
 
-    .buttons form button {
+    .checkout-btn-container button {
       background-color: #2980b9;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     }
 
-    .buttons form button:hover {
-      background-color: #1c5980;
-    }
+    .checkout-btn-container button:hover { background-color: #1c5980; }
 
     footer {
       text-align: center;
@@ -186,20 +193,10 @@
       margin-top: 40px;
     }
 
-    a {
-      color: #2980b9;
-      text-decoration: none;
-      font-weight: 600;
-    }
+    a { color: #2980b9; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+    .back-link { text-align: center; margin-bottom: 40px; }
   </style>
 </head>
 <body>
@@ -250,6 +247,11 @@
     </form>
   </div>
 
+  <!-- Go to Checkout button -->
+  <div class="checkout-btn-container">
+    <button onclick="addToCartAndCheckout()">Go to Checkout</button>
+  </div>
+
   <div class="back-link">
     <a href="index.html">&larr; Back to all products</a>
   </div>
@@ -293,16 +295,25 @@
     // Initialize first thumbnail as active
     thumbnails[0].classList.add("active");
 
-    // Add to Cart function
+    // Add to Cart with duplicate-prevention
     function addToCart() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({
-        name: "Samurai Embroidered Jeans",
-        price: 110.00,
-        image: images[0],
-        url: "samurai-jeans.html"
-      });
-      localStorage.setItem("cart", JSON.stringify(cart));
+      const exists = cart.some(item => item.name === "Samurai Embroidered Jeans");
+      if (!exists) {
+        cart.push({
+          name: "Samurai Embroidered Jeans",
+          price: 110.00,
+          image: images[0],
+          url: "samurai-jeans.html"
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+    }
+
+    // Add to Cart and Go to Checkout
+    function addToCartAndCheckout() {
+      addToCart();
+      window.location.href = "checkout.html";
     }
   </script>
 
