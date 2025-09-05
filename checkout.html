@@ -20,14 +20,6 @@
       margin-bottom: 30px;
     }
 
-    h2 {
-      margin-top: 40px;
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-      color: #2c3e50;
-      text-align: center;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -57,9 +49,9 @@
     }
 
     #total-display {
-      font-weight: 700;      /* bolder total */
-      text-align: center;    /* centered */
-      font-size: 1.3rem;     /* slightly larger */
+      font-weight: 700;
+      text-align: center;
+      font-size: 1.3rem;
       margin: 20px 0;
     }
 
@@ -115,81 +107,154 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
-    footer {
-      text-align: center;
-      font-size: 13px;
-      color: #999;
-      margin-top: 60px;
+    .shipping-box {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      background: #f9f9f9;
+    }
+
+    .shipping-box input, .shipping-box select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .shipping-box button {
+      background:#27ae60;
+      color:white;
+      padding:12px 25px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .shipping-box button:hover {
+      background:#1e8449;
     }
   </style>
 </head>
 <body>
 
-  <h1>Checkout</h1>
+<h1>Checkout</h1>
 
-  <div id="cart-container"></div>
-  <div id="shipping-container"></div>
-  <div id="total-display"></div>
+<div id="shipping-box-container"></div>
 
-  <h2>Payment Options</h2>
-  <button class="paypal-btn">Checkout with PayPal</button>
+<div id="cart-container"></div>
 
-  <a href="cart.html" class="return-btn">← Back to Cart</a>
+<div id="total-display"></div>
 
-  <footer>
-    <p>© 2025 Rokichi. All rights reserved.</p>
-  </footer>
+<h2>Payment Options</h2>
+<button class="paypal-btn">Checkout with PayPal</button>
 
-  <script>
-    // Check if a single-item checkout exists
-    let checkoutCart = JSON.parse(localStorage.getItem('checkoutTemp'));
-    if (checkoutCart) {
-      localStorage.removeItem('checkoutTemp'); // Clear after reading
-    } else {
-      checkoutCart = JSON.parse(localStorage.getItem('cart')) || [];
+<a href="cart.html" class="return-btn">← Back to Cart</a>
+
+<footer>
+  <p>© 2025 Rokichi. All rights reserved.</p>
+</footer>
+
+<script>
+  // Load single-item checkout if exists
+  let cart = JSON.parse(localStorage.getItem('checkoutTemp')) || JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Load shipping info and cost
+  let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
+  let shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
+
+  const cartContainer = document.getElementById('cart-container');
+  const shippingBoxContainer = document.getElementById('shipping-box-container');
+  const totalDisplay = document.getElementById('total-display');
+
+  function renderCart() {
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+      return;
     }
+    let html = '<table><tr><th>Item</th><th>Price</th></tr>';
+    cart.forEach(item => {
+      html += `<tr><td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
+               <td>£${item.price.toFixed(2)}</td></tr>`;
+    });
+    html += '</table>';
+    cartContainer.innerHTML = html;
+  }
 
-    let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
-    let shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
-
-    const cartContainer = document.getElementById('cart-container');
-
-    if (cartContainer) {
-      if (checkoutCart.length === 0) {
-        cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
-      } else {
-        let html = '<table><tr><th>Item</th><th>Price</th></tr>';
-        checkoutCart.forEach(item => {
-          html += `
-            <tr>
-              <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
-              <td>£${item.price.toFixed(2)}</td>
-            </tr>
-          `;
-        });
-        html += '</table>';
-        cartContainer.innerHTML = html;
-      }
-    }
-
-    // Display shipping info
-    const shippingContainer = document.getElementById('shipping-container');
-    if (shippingContainer && Object.keys(shippingInfo).length > 0) {
-      shippingContainer.innerHTML = `
+  function renderShippingBox() {
+    // If shippingInfo exists, display summary instead
+    if (Object.keys(shippingInfo).length > 0) {
+      shippingBoxContainer.innerHTML = `<div class="shipping-box">
         <h3>Shipping Information</h3>
         <p>${shippingInfo.address1}${shippingInfo.address2 ? ', ' + shippingInfo.address2 : ''}</p>
         <p>${shippingInfo.city}, ${shippingInfo.postcode}</p>
         <p>${shippingInfo.country}</p>
-      `;
-    }
+      </div>`;
+    } else {
+      // Show shipping form
+      shippingBoxContainer.innerHTML = `<div class="shipping-box">
+        <h3>Shipping Information</h3>
+        <input type="text" id="address1" placeholder="Address Line 1" required />
+        <input type="text" id="address2" placeholder="Address Line 2 (optional)" />
+        <input type="text" id="city" placeholder="City" required />
+        <input type="text" id="postcode" placeholder="Postcode" required />
+        <select id="country" required>
+          <option value="">Select a country...</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="United States">United States</option>
+          <option value="Germany">Germany</option>
+          <option value="France">France</option>
+          <option value="Spain">Spain</option>
+          <option value="Other">Other</option>
+        </select>
+        <button id="calculate-shipping">Calculate Shipping</button>
+      </div>`;
 
-    // Display total including shipping
-    const totalContainer = document.getElementById('total-display');
-    if (totalContainer) {
-      const cartTotal = checkoutCart.reduce((sum, item) => sum + item.price, 0);
-      totalContainer.innerText = `Total (including shipping): £${(cartTotal + shippingCost).toFixed(2)}`;
+      document.getElementById('calculate-shipping').addEventListener('click', () => {
+        const address1 = document.getElementById('address1').value.trim();
+        const address2 = document.getElementById('address2').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const postcode = document.getElementById('postcode').value.trim();
+        const country = document.getElementById('country').value.trim();
+
+        if (!address1 || !city || !postcode || !country) {
+          alert('Please fill in all required fields.');
+          return;
+        }
+
+        let cost = 0;
+        const euCountries = ["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"];
+
+        if (country === "United Kingdom") cost = 3.99;
+        else if (euCountries.includes(country)) cost = 9.99;
+        else if (country === "United States") cost = 24.99;
+        else cost = 39.99;
+
+        shippingInfo = {address1, address2, city, postcode, country};
+        shippingCost = cost;
+
+        localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
+        localStorage.setItem('shippingCost', shippingCost);
+
+        renderShippingBox();
+        updateTotal();
+      });
     }
-  </script>
+  }
+
+  function updateTotal() {
+    const total = cart.reduce((sum, item) => sum + item.price, 0) + shippingCost;
+    totalDisplay.innerText = `Total (including shipping): £${total.toFixed(2)}`;
+  }
+
+  renderCart();
+  renderShippingBox();
+  updateTotal();
+</script>
 
 </body>
 </html>
