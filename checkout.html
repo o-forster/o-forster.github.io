@@ -69,6 +69,28 @@
       margin: 40px 0;
     }
 
+    .paypal-btn {
+      background: #ffc439;
+      color: #111;
+      font-size: 1rem;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      font-weight: 600;
+      text-align: center;
+      max-width: 250px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .paypal-btn:hover {
+      background: #f4b400;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
     .return-btn {
       background: #2980b9;
       color: white;
@@ -107,7 +129,7 @@
   <div id="order-summary" aria-live="polite"></div>
 
   <h2>Payment Options</h2>
-  <p>PayPal will be available here as the first payment method. More options will be added later.</p>
+  <button class="paypal-btn">Checkout with PayPal</button>
 
   <!-- Return button -->
   <a href="cart.html" class="return-btn">← Back to Cart</a>
@@ -143,4 +165,5 @@
 
 </body>
 </html>
+
 
