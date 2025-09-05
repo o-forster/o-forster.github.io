@@ -274,64 +274,48 @@
     <p>© 2025 Rokichi. All rights reserved.</p>
   </footer>
 
-  <script>
-    const images = [
-      "https://i.imgur.com/cngu4MM.jpeg",
-      "https://i.imgur.com/MOj6WDZ.jpeg",
-      "https://i.imgur.com/9kQUOYY.jpeg",
-      "https://i.imgur.com/G4QL1ia.jpeg",
-      "https://i.imgur.com/fwL7Tys.jpeg",
-      "https://i.imgur.com/7vGVvuP.jpeg"
-    ];
+ <script>
+  const images = [
+    "https://i.imgur.com/cngu4MM.jpeg",
+    "https://i.imgur.com/MOj6WDZ.jpeg",
+    "https://i.imgur.com/9kQUOYY.jpeg",
+    "https://i.imgur.com/G4QL1ia.jpeg",
+    "https://i.imgur.com/fwL7Tys.jpeg",
+    "https://i.imgur.com/7vGVvuP.jpeg"
+  ];
 
-    let currentIndex = 0;
-    const mainImage = document.getElementById("mainImage");
-    const thumbnails = document.querySelectorAll(".thumbnails img");
+  let currentIndex = 0;
+  const mainImage = document.getElementById("mainImage");
 
-    function showImage(index) {
-      currentIndex = index;
-      mainImage.src = images[index];
+  function showImage(index) {
+    currentIndex = index;
+    mainImage.src = images[index];
+    document.querySelectorAll(".thumbnails img").forEach((thumb, i) => {
+      thumb.classList.toggle("active", i === index);
+    });
+  }
 
-      // Update active thumbnail
-      thumbnails.forEach((thumb, i) => {
-        thumb.classList.toggle("active", i === index);
-      });
-    }
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
 
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
-    }
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
 
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
-    }
-
-    // Initialize first thumbnail as active
-    thumbnails[0].classList.add("active");
-
-    // Cart logic (no popup)
-   function addToCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (!cart.some(item => item.name === "Red Embroidered Jeans")) {
+  // --- FIXED Add to Cart function ---
+  function addToCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.push({
       name: "Red Embroidered Jeans",
-      price: 130,
+      price: 130.00,
       url: "red-jeans.html"
     });
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
-}
-
-
-      if (!cart.some(item => item.name === product.name)) {
-        cart.push(product);
-      }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  </script>
+</script>
 
 </body>
 </html>
