@@ -33,6 +33,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
+    /* Cart link */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -75,6 +76,7 @@
       line-height: 1.6;
     }
 
+    /* Gallery Styles */
     .gallery-container {
       margin: 30px 0;
     }
@@ -112,6 +114,7 @@
 
     .arrow.left { left: -50px; }
     .arrow.right { right: -50px; }
+
     .arrow:hover { color: #2c3e50; }
 
     .thumbnails {
@@ -142,12 +145,12 @@
       transform: scale(1.05);
     }
 
-    .buttons {
+    .cart-actions {
       text-align: center;
-      margin: 40px 0;
+      margin: 25px 0 40px;
     }
 
-    .buttons button {
+    .cart-actions button {
       background-color: #27ae60;
       border: none;
       padding: 12px 25px;
@@ -156,32 +159,19 @@
       color: #fff;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-      margin: 10px;
+      display: block;
+      margin: 0 auto;
     }
 
-    .buttons button:hover { background-color: #1e8449; }
-
-    .checkout-btn-container {
-      text-align: center;
-      margin: 20px 0 40px;
+    .cart-actions button:hover {
+      background-color: #1e8449;
     }
 
-    .checkout-btn-container button {
-      background-color: #2980b9;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    .cart-actions button + button {
+      margin-top: 15px;
     }
-
-    .checkout-btn-container button:hover { background-color: #1c5980; }
 
     footer {
       text-align: center;
@@ -190,10 +180,20 @@
       margin-top: 40px;
     }
 
-    a { color: #2980b9; text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-    .back-link { text-align: center; margin-bottom: 40px; }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-bottom: 40px;
+    }
   </style>
 </head>
 <body>
@@ -226,16 +226,11 @@
   <p class="price">£110.00</p>
   <p class="description">
     Super cool Japanese embroidered jeans featuring a detailed samurai girl design. 
-    Divine retribution — similar to Karakuri pieces.<br><br>
+    Divine retribution — similar to Karakuri pieces.
   </p>
 
-  <div class="buttons">
-    <!-- Add to Cart -->
+  <div class="cart-actions">
     <button onclick="addToCart()">Add to Cart</button>
-  </div>
-
-  <!-- Go to Checkout button -->
-  <div class="checkout-btn-container">
     <button onclick="addToCartAndCheckout()">Go to Checkout</button>
   </div>
 
@@ -279,25 +274,21 @@
       showImage(currentIndex);
     }
 
-    // Initialize first thumbnail as active
     thumbnails[0].classList.add("active");
 
-    // Add to Cart with duplicate-prevention
+    // Add to Cart (no duplicates)
     function addToCart() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const exists = cart.some(item => item.name === "Samurai Embroidered Jeans");
-      if (!exists) {
+      if (!cart.some(item => item.name === "Samurai Embroidered Jeans")) {
         cart.push({
           name: "Samurai Embroidered Jeans",
           price: 110.00,
-          image: images[0],
           url: "samurai-jeans.html"
         });
         localStorage.setItem("cart", JSON.stringify(cart));
       }
     }
 
-    // Add to Cart and Go to Checkout
     function addToCartAndCheckout() {
       addToCart();
       window.location.href = "checkout.html";
