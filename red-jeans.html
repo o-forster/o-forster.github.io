@@ -59,48 +59,40 @@
       margin: 30px 0;
     }
 
-.main-gallery {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  max-width: 450px; /* fixed based on widest image */
-  margin: 0 auto;
-}
-
-
-.main-gallery img {
-  height: 480px;
-  object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: 100%;
-}
-
-.arrow {
-  position: absolute;   /* keeps arrows fixed */
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #888;
-  cursor: pointer;
-  padding: 10px;
-  transition: color 0.2s ease;
-}
-
-.arrow.left {
-  left: -50px; /* space to the left */
-}
-
-.arrow.right {
-  right: -50px; /* space to the right */
-}
-
-    .arrow:hover {
-      color: #2c3e50;
+    .main-gallery {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      max-width: 450px;
+      margin: 0 auto;
     }
+
+    .main-gallery img {
+      height: 480px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 100%;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #888;
+      cursor: pointer;
+      padding: 10px;
+      transition: color 0.2s ease;
+    }
+
+    .arrow.left { left: -50px; }
+    .arrow.right { right: -50px; }
+
+    .arrow:hover { color: #2c3e50; }
 
     .thumbnails {
       display: flex;
@@ -126,7 +118,7 @@
 
     .thumbnails img.active {
       opacity: 1;
-      border: 2px solid #9A2A2A; /* Rokichi red */
+      border: 2px solid #9A2A2A;
       transform: scale(1.05);
     }
 
@@ -187,9 +179,7 @@
       font-weight: 600;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
+    a:hover { text-decoration: underline; }
 
     .back-link {
       text-align: center;
@@ -255,12 +245,10 @@
     <button onclick="addToCart()">Add to Cart</button>
   </div>
 
-<div class="paypal-button">
-  <a href="checkout.html">
-    <button type="button">Go to Checkout</button>
-  </a>
-</div>
-
+  <!-- Go to Checkout button -->
+  <div class="paypal-button">
+    <button type="button" onclick="addToCartAndCheckout()">Go to Checkout</button>
+  </div>
 
   <div class="back-link">
     <a href="index.html">&larr; Back to all products</a>
@@ -301,7 +289,7 @@
     showImage(currentIndex);
   }
 
-  // --- FIXED Add to Cart function ---
+  // Add to Cart function
   function addToCart() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.push({
@@ -312,7 +300,19 @@
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-     // Initialize first thumbnail as active
+  // Add to Cart and go to Checkout
+  function addToCartAndCheckout() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+      name: "Red Embroidered Jeans",
+      price: 130.00,
+      url: "red-jeans.html"
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.location.href = "checkout.html";
+  }
+
+  // Initialize first thumbnail as active
   showImage(0);
 </script>
 
