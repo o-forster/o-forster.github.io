@@ -97,10 +97,12 @@
       object-fit: contain;
       border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 0 10px;
     }
 
     .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       background: none;
       border: none;
       font-size: 2rem;
@@ -108,17 +110,14 @@
       cursor: pointer;
       padding: 10px;
       transition: color 0.2s ease;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     .arrow.left {
-      left: -50px;
+      left: -50px; /* stay outside fixed gallery */
     }
 
     .arrow.right {
-      right: -50px;
+      right: -50px; /* stay outside fixed gallery */
     }
 
     .arrow:hover {
@@ -290,5 +289,6 @@
 
 </body>
 </html>
+
 
 
