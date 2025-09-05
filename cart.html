@@ -21,10 +21,21 @@
     .return-btn { background: #2980b9; color: white; font-size: 1rem; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; display: block; margin: 40px auto 0; font-weight: 600; text-decoration: none; text-align: center; max-width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.15); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
     .return-btn:hover { background: #1c5980; box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
     .empty { text-align: center; color: #777; font-size: 1.2rem; }
-    #shipping-section { margin: 20px 0; text-align: center; }
-    #shipping-section input { padding: 8px; width: 80%; max-width: 400px; border-radius: 4px; border: 1px solid #ccc; }
-    #shipping-cost { margin-top: 10px; font-weight: 600; }
-    footer { text-align: center; font-size: 13px; color: #999; margin-top: 60px; }
+
+    /* Shipping box */
+    #shipping-section {
+      border: 1px solid #ddd;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      margin: 20px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    #shipping-section h3 { text-align: center; margin-bottom: 15px; }
+    .shipping-input { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1rem; }
+    #calculate-shipping-btn { background: #2980b9; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; max-width: 300px; margin: 10px auto; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.15); transition: background-color 0.3s ease; }
+    #calculate-shipping-btn:hover { background: #1c5980; }
+    #shipping-cost { text-align: center; font-weight: 600; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -34,8 +45,13 @@
 <div id="cart-container" aria-live="polite"></div>
 
 <div id="shipping-section">
-  <h3>Calculate Shipping</h3>
-  <input type="text" id="address" placeholder="Street, City, Country" oninput="updateShipping()">
+  <h3>Shipping Information</h3>
+  <input type="text" id="address1" placeholder="Address Line 1 (required)" class="shipping-input" required>
+  <input type="text" id="address2" placeholder="Address Line 2" class="shipping-input">
+  <input type="text" id="city" placeholder="City (required)" class="shipping-input" required>
+  <input type="text" id="postcode" placeholder="Postcode (required)" class="shipping-input" required>
+  <input type="text" id="country" placeholder="Country (required)" class="shipping-input" required>
+  <button id="calculate-shipping-btn" onclick="calculateShipping()">Calculate Shipping</button>
   <p id="shipping-cost">Shipping: £0.00</p>
 </div>
 
@@ -50,23 +66,6 @@
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart = cart.map(item => ({ ...item, price: Number(item.price) || 0, currency: item.currency || "GBP" }));
   localStorage.setItem('cart', JSON.stringify(cart));
-
-  function calculateShipping(address) {
-    if (!address) return 0;
-    const addr = address.toLowerCase();
-    if (addr.includes('uk') || addr.includes('united kingdom')) return 3.99;
-    if (addr.includes('germany') || addr.includes('france') || addr.includes('eu') || addr.includes('europe')) return 9.99;
-    if (addr.includes('us') || addr.includes('usa') || addr.includes('united states')) return 24.99;
-    return 39.99; // default for other countries
-  }
-
-  function updateShipping() {
-    const address = document.getElementById('address').value.trim();
-    const shippingCost = calculateShipping(address);
-    localStorage.setItem('shippingCost', shippingCost);
-    document.getElementById('shipping-cost').textContent = 'Shipping: £' + shippingCost.toFixed(2);
-    renderCart();
-  }
 
   function renderCart() {
     if (cart.length === 0) {
@@ -99,6 +98,23 @@
   function removeItem(index) {
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  function calculateShipping() {
+    const countryInput = document.getElementById('country').value.trim().toLowerCase();
+    if (!countryInput) {
+      alert("Please enter your country.");
+      return;
+    }
+
+    let shipping = 39.99; // default other
+    if (countryInput === 'uk' || countryInput === 'united kingdom') shipping = 3.99;
+    else if (['germany','france','eu','europe'].includes(countryInput)) shipping = 9.99;
+    else if (countryInput === 'us' || countryInput === 'usa' || countryInput === 'united states') shipping = 24.99;
+
+    localStorage.setItem('shippingCost', shipping);
+    document.getElementById('shipping-cost').textContent = 'Shipping: £' + shipping.toFixed(2);
     renderCart();
   }
 
