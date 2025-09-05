@@ -405,10 +405,18 @@
 
   localStorage.setItem('cart', JSON.stringify(cart));
 
+  function updateCheckoutButton() {
+    if (cart.length === 0) {
+      checkoutBtn.classList.add('disabled');
+    } else {
+      checkoutBtn.classList.remove('disabled');
+    }
+  }
+
   function renderCart() {
     if (cart.length === 0) {
       cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
-      checkoutBtn.disabled = true;
+      updateCheckoutButton();
       return;
     }
 
@@ -426,7 +434,7 @@
     cartContainer.innerHTML = html;
 
     updateTotal();
-    checkoutBtn.disabled = false;
+    updateCheckoutButton();
   }
 
   function removeItem(index) {
@@ -480,6 +488,9 @@
     if (savedShipping.postcode) document.getElementById('postcode').value = savedShipping.postcode;
     if (savedShipping.country) document.getElementById('country').value = savedShipping.country;
   }
+
+  // Initial button state
+  updateCheckoutButton();
 </script>
 
 </body>
