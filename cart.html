@@ -69,16 +69,23 @@
     }
 
     .checkout-btn {
-      background: #27ae60;
-      color: white;
-      font-size: 1rem;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      display: block;
-      margin: 0 auto;
-    }
+  background: #27ae60;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block; /* was block */
+  margin: 0 auto;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  max-width: none; /* remove fixed width limit */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 
     .checkout-btn:hover {
       background: #1e8449;
