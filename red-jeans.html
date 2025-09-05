@@ -3,200 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Red Embroidered Jeans | Rokichi</title>
+  <title>Red Embroidered Jeans — Rokichi</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #faf9f7;
-      color: #333;
+      background: #f9f9f9;
       padding: 20px;
-      max-width: 900px;
+      max-width: 800px;
       margin: auto;
     }
-
-    header {
+    h1 {
       text-align: center;
-      margin-bottom: 30px;
+      font-size: 28px;
+      margin-bottom: 20px;
     }
-
-    .brand-bubble {
-      display: inline-block;
-      background-color: #9A2A2A;
-      color: white;
-      padding: 6px 18px;
-      font-size: 2.2rem;
-      font-weight: 600;
-      border-radius: 30px;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-
-    .price {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #27ae60;
-      margin: 10px 0 15px;
-    }
-
-    .description {
-      text-align: center;
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 30px;
-    }
-
-    /* Gallery Styles */
-    .gallery-container {
-      margin: 30px 0;
-    }
-
-.main-gallery {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  max-width: 450px; /* fixed based on widest image */
-  margin: 0 auto;
-}
-
-
-.main-gallery img {
-  height: 480px;
-  object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: 100%;
-}
-
-.arrow {
-  position: absolute;   /* keeps arrows fixed */
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #888;
-  cursor: pointer;
-  padding: 10px;
-  transition: color 0.2s ease;
-}
-
-.arrow.left {
-  left: -50px; /* space to the left */
-}
-
-.arrow.right {
-  right: -50px; /* space to the right */
-}
-
-    .arrow:hover {
-      color: #2c3e50;
-    }
-
-    .thumbnails {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-
-    .thumbnails img {
-      height: 100px;
-      cursor: pointer;
-      border-radius: 4px;
-      opacity: 0.7;
-      transition: opacity 0.3s ease, transform 0.3s ease, border 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .thumbnails img:hover {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    .thumbnails img.active {
-      opacity: 1;
-      border: 2px solid #9A2A2A; /* Rokichi red */
-      transform: scale(1.05);
-    }
-
-    .cart-actions {
-      text-align: center;
-      margin: 25px 0 10px;
-    }
-
-    .cart-actions button {
-      background-color: #27ae60;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-
-    .cart-actions button:hover {
-      background-color: #1e8449;
-    }
-
-    .paypal-button {
-      text-align: center;
-      margin: 20px 0 40px;
-    }
-
-    .paypal-button button {
-      background-color: #2980b9;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-
-    .paypal-button button:hover {
-      background-color: #1c5980;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 13px;
-      color: #999;
-      margin-top: 40px;
-    }
-
-    a {
-      color: #2980b9;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    /* Cart button */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -211,10 +32,115 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       z-index: 1000;
     }
-
     .cart-link:hover {
       background-color: #1c5980;
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+    .gallery {
+      position: relative;
+      max-width: 100%;
+      margin: auto;
+    }
+    .gallery img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .thumbnails img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
+    }
+    .thumbnails img.active {
+      border-color: #2980b9;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 50%;
+      user-select: none;
+    }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
+    .description {
+      margin: 25px 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+    .price {
+      font-size: 22px;
+      font-weight: 600;
+      color: #27ae60;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .action-btn {
+      background-color: #2980b9;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 10px auto;
+    }
+    .action-btn:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+    form input[type="submit"] {
+      background-color: #ffc439;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 10px auto;
+    }
+    form input[type="submit"]:hover {
+      background-color: #e6b32d;
+    }
+    .back-link {
+      display: block;
+      margin: 30px 0;
+      text-align: center;
+      color: #2980b9;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -223,78 +149,59 @@
   <!-- Cart button -->
   <a href="cart.html" class="cart-link">🛒 Cart</a>
 
-  <header>
-    <div class="brand-bubble">Rokichi</div>
-  </header>
+  <h1>Red Embroidered Jeans</h1>
 
-  <h2>Red Embroidered Jeans</h2>
+  <div class="gallery">
+    <button class="arrow left" onclick="prevImage()">❮</button>
+    <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans" />
+    <button class="arrow right" onclick="nextImage()">❯</button>
+  </div>
 
-  <!-- Image Gallery -->
-  <div class="gallery-container">
-    <div class="main-gallery">
-      <button class="arrow left" onclick="prevImage()">&#8592;</button>
-      <img id="mainImage" src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Jeans" />
-      <button class="arrow right" onclick="nextImage()">&#8594;</button>
-    </div>
+  <div class="thumbnails">
+    <img src="https://i.imgur.com/cngu4MM.jpeg" onclick="showImage(0)" class="active" />
+    <img src="https://i.imgur.com/d1M1jP7.jpeg" onclick="showImage(1)" />
+    <img src="https://i.imgur.com/96sN9Gv.jpeg" onclick="showImage(2)" />
+    <img src="https://i.imgur.com/Hlm8DRO.jpeg" onclick="showImage(3)" />
+    <img src="https://i.imgur.com/8xM4gZQ.jpeg" onclick="showImage(4)" />
+  </div>
 
-    <div class="thumbnails">
-      <img src="https://i.imgur.com/cngu4MM.jpeg" onclick="showImage(0)" />
-      <img src="https://i.imgur.com/MOj6WDZ.jpeg" onclick="showImage(1)" />
-      <img src="https://i.imgur.com/9kQUOYY.jpeg" onclick="showImage(2)" />
-      <img src="https://i.imgur.com/G4QL1ia.jpeg" onclick="showImage(3)" />
-      <img src="https://i.imgur.com/fwL7Tys.jpeg" onclick="showImage(4)" />
-      <img src="https://i.imgur.com/7vGVvuP.jpeg" onclick="showImage(5)" />
-    </div>
+  <div class="description">
+    <p>Rare Japanese jeans with bright red embroidery of a samurai warrior. Distinctive design, high-quality denim, and striking aesthetic. Perfectly captures the spirit of vintage Japanese craftsmanship.</p>
+    <p>Size: W32 L32<br>Condition: 9/10 — Excellent<br>Origin: Japan</p>
   </div>
 
   <p class="price">£130.00</p>
-  <p class="description">Karakuri Tamashii Japanese gods embroidery. Excellent condition.</p>
 
-  <!-- Add to Cart button -->
-  <div class="cart-actions">
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+  <!-- Add to Cart -->
+  <button class="action-btn" onclick="addToCart()">Add to Cart</button>
 
-  <div class="paypal-button">
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-      <input type="hidden" name="cmd" value="_xclick">
-      <input type="hidden" name="business" value="retsrofracso@icloud.com">
-      <input type="hidden" name="item_name" value="Red Embroidered Jeans">
-      <input type="hidden" name="amount" value="130.00">
-      <input type="hidden" name="currency_code" value="GBP">
-      <button type="submit">Buy Now with PayPal</button>
-    </form>
-  </div>
+  <!-- PayPal Buy Now -->
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick" />
+    <input type="hidden" name="business" value="retsrofracso@icloud.com" />
+    <input type="hidden" name="item_name" value="Red Embroidered Jeans" />
+    <input type="hidden" name="amount" value="130.00" />
+    <input type="hidden" name="currency_code" value="GBP" />
+    <input type="submit" value="Buy Now with PayPal" />
+  </form>
 
-  <div class="back-link">
-    <a href="index.html">&larr; Back to all products</a>
-  </div>
-
-  <footer>
-    <p>© 2025 Rokichi. All rights reserved.</p>
-  </footer>
+  <a class="back-link" href="index.html">← Back to Shop</a>
 
   <script>
     const images = [
       "https://i.imgur.com/cngu4MM.jpeg",
-      "https://i.imgur.com/MOj6WDZ.jpeg",
-      "https://i.imgur.com/9kQUOYY.jpeg",
-      "https://i.imgur.com/G4QL1ia.jpeg",
-      "https://i.imgur.com/fwL7Tys.jpeg",
-      "https://i.imgur.com/7vGVvuP.jpeg"
+      "https://i.imgur.com/d1M1jP7.jpeg",
+      "https://i.imgur.com/96sN9Gv.jpeg",
+      "https://i.imgur.com/Hlm8DRO.jpeg",
+      "https://i.imgur.com/8xM4gZQ.jpeg"
     ];
-
     let currentIndex = 0;
-    const mainImage = document.getElementById("mainImage");
-    const thumbnails = document.querySelectorAll(".thumbnails img");
 
     function showImage(index) {
       currentIndex = index;
-      mainImage.src = images[index];
-
-      // Update active thumbnail
-      thumbnails.forEach((thumb, i) => {
-        thumb.classList.toggle("active", i === index);
+      document.getElementById("mainImage").src = images[index];
+      document.querySelectorAll(".thumbnails img").forEach((img, i) => {
+        img.classList.toggle("active", i === index);
       });
     }
 
@@ -308,25 +215,18 @@
       showImage(currentIndex);
     }
 
-    // Initialize first thumbnail as active
-    thumbnails[0].classList.add("active");
-
-    // Cart logic (no popup)
     function addToCart() {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const product = {
-        name: "Red Embroidered Jeans",
-        price: 130.00,
-        quantity: 1
-      };
-
-      if (!cart.some(item => item.name === product.name)) {
-        cart.push(product);
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // Ensure no duplicate
+      if (!cart.some(item => item.name === "Red Embroidered Jeans")) {
+        cart.push({
+          name: "Red Embroidered Jeans",
+          price: 130,
+          url: "red-jeans.html"
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
       }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
     }
   </script>
-
 </body>
 </html>
