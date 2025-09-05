@@ -81,22 +81,25 @@
       margin: 30px 0;
     }
 
-    .main-gallery {
+  .main-gallery {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 500px; /* fixed height for consistency */
+  width: 450px;   /* fixed width based on widest image */
+  height: 500px;  /* fixed height so layout doesn’t jump */
+  margin: 0 auto; /* keeps it centered */
 }
 
 .main-gallery img {
-  max-height: 100%;
   max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   margin: 0 10px;
 }
+
 
     .arrow {
       background: none;
