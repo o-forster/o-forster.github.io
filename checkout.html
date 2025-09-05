@@ -138,6 +138,18 @@
     .shipping-box button:hover {
       background:#1e8449;
     }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      margin-top: 60px;
+    }
+
+    /* Center Payment Options Section */
+    .payment-options {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -150,8 +162,10 @@
 
 <div id="total-display"></div>
 
-<h2>Payment Options</h2>
-<button class="paypal-btn">Checkout with PayPal</button>
+<div class="payment-options">
+  <h2>Payment Options</h2>
+  <button class="paypal-btn">Checkout with PayPal</button>
+</div>
 
 <a href="cart.html" class="return-btn">← Back to Cart</a>
 
@@ -186,7 +200,6 @@
   }
 
   function renderShippingBox() {
-    // If shippingInfo exists, display summary instead
     if (Object.keys(shippingInfo).length > 0) {
       shippingBoxContainer.innerHTML = `<div class="shipping-box">
         <h3>Shipping Information</h3>
@@ -195,15 +208,14 @@
         <p>${shippingInfo.country}</p>
       </div>`;
     } else {
-      // Show shipping form
       shippingBoxContainer.innerHTML = `<div class="shipping-box">
         <h3>Shipping Information</h3>
         <input type="text" id="address1" placeholder="Address Line 1" required />
         <input type="text" id="address2" placeholder="Address Line 2 (optional)" />
         <input type="text" id="city" placeholder="City" required />
         <input type="text" id="postcode" placeholder="Postcode" required />
- <select id="country" required>
-  <option value="">Select a country...</option>
+        <select id="country" required>
+<option value="">Select a country...</option>
   <option value="Afghanistan">Afghanistan</option>
   <option value="Albania">Albania</option>
   <option value="Algeria">Algeria</option>
@@ -397,8 +409,7 @@
   <option value="Yemen">Yemen</option>
   <option value="Zambia">Zambia</option>
   <option value="Zimbabwe">Zimbabwe</option>
-</select>
-
+        </select>
         <button id="calculate-shipping">Calculate Shipping</button>
       </div>`;
 
@@ -415,10 +426,7 @@
         }
 
         let cost = 0;
-        const euCountries = ["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"];
-
         if (country === "United Kingdom") cost = 3.99;
-        else if (euCountries.includes(country)) cost = 9.99;
         else if (country === "United States") cost = 24.99;
         else cost = 39.99;
 
@@ -446,3 +454,4 @@
 
 </body>
 </html>
+
