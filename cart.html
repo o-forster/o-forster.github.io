@@ -146,8 +146,8 @@
 
       let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
       cart.forEach((item, i) => {
-        // fallback: if no URL stored, link to homepage
-        const url = item.url ? item.url : 'index.html';
+        // Support both "url" and "link"
+        const url = item.url || item.link || 'index.html';
         html += `
           <tr>
             <td><a href="${url}">${item.name}</a></td>
