@@ -33,7 +33,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
-    /* Cart button */
+    /* Cart link (consistent with other pages) */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -81,25 +81,24 @@
       margin: 30px 0;
     }
 
-  .main-gallery {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 450px;   /* fixed width based on widest image */
-  height: 500px;  /* fixed height so layout doesn’t jump */
-  margin: 0 auto; /* keeps it centered */
-}
+    .main-gallery {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 450px;   /* fixed width */
+      height: 500px;  /* fixed height */
+      margin: 0 auto;
+    }
 
-.main-gallery img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin: 0 10px;
-}
-
+    .main-gallery img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 0 10px;
+    }
 
     .arrow {
       background: none;
@@ -109,6 +108,17 @@
       cursor: pointer;
       padding: 10px;
       transition: color 0.2s ease;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .arrow.left {
+      left: -50px;
+    }
+
+    .arrow.right {
+      right: -50px;
     }
 
     .arrow:hover {
@@ -280,4 +290,5 @@
 
 </body>
 </html>
+
 
