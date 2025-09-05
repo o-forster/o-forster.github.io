@@ -56,11 +56,11 @@
       color: #1c5980;
     }
 
-    .total {
-      font-size: 1.3rem;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 10px;
+    #total-display {
+      font-weight: 700;      /* bolder total */
+      text-align: center;    /* centered */
+      font-size: 1.3rem;     /* slightly larger */
+      margin: 20px 0;
     }
 
     .empty {
@@ -129,9 +129,7 @@
 
   <div id="cart-container"></div>
   <div id="shipping-container"></div>
-  <div id="total-display" style="font-weight:700; text-align:center; margin:20px 0;"></div>
-
-  <div id="order-summary" aria-live="polite"></div>
+  <div id="total-display"></div>
 
   <h2>Payment Options</h2>
   <button class="paypal-btn">Checkout with PayPal</button>
@@ -143,37 +141,29 @@
   </footer>
 
   <script>
-    const orderSummary = document.getElementById('order-summary');
-
-    // --- FIXED SINGLE-ITEM CHECKOUT ---
-    let cart = [];
-    let checkoutTemp = JSON.parse(localStorage.getItem('checkoutTemp'));
-    if (checkoutTemp && checkoutTemp.length > 0) {
-      cart = checkoutTemp;
-      localStorage.removeItem('checkoutTemp');
-    } else {
-      cart = JSON.parse(localStorage.getItem('cart')) || [];
-    }
-    // ----------------------------------
-
+    // Get cart and shipping info from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
     let shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
 
-    // Display cart items in order summary table
-    if (cart.length === 0) {
-      orderSummary.innerHTML = '<p class="empty">Your cart is empty.</p>';
-    } else {
-      let html = '<table><tr><th>Item</th><th>Price</th></tr>';
-      cart.forEach(item => {
-        html += `
-          <tr>
-            <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}<a href="${item.url}">${item.name}</a></td>
-            <td>£${item.price.toFixed(2)}</td>
-          </tr>
-        `;
-      });
-      html += '</table>';
-      orderSummary.innerHTML = html;
+    // Display cart items
+    const cartContainer = document.getElementById('cart-container');
+    if (cartContainer) {
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+      } else {
+        let html = '<table><tr><th>Item</th><th>Price</th></tr>';
+        cart.forEach(item => {
+          html += `
+            <tr>
+              <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
+              <td>£${item.price.toFixed(2)}</td>
+            </tr>
+          `;
+        });
+        html += '</table>';
+        cartContainer.innerHTML = html;
+      }
     }
 
     // Display shipping info
