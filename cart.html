@@ -36,6 +36,18 @@
       background-color: #f0f0f0;
     }
 
+    td a {
+      color: #2980b9;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+      color: #1c5980;
+    }
+
     .remove-btn {
       background: #c0392b;
       color: white;
@@ -134,9 +146,11 @@
 
       let html = '<table><tr><th>Item</th><th>Price</th><th>Remove</th></tr>';
       cart.forEach((item, i) => {
+        // fallback: if no URL stored, link to homepage
+        const url = item.url ? item.url : 'index.html';
         html += `
           <tr>
-            <td>${item.name}</td>
+            <td><a href="${url}">${item.name}</a></td>
             <td>£${item.price.toFixed(2)}</td>
             <td><button class="remove-btn" onclick="removeItem(${i})">Remove</button></td>
           </tr>
