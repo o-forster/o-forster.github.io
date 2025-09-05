@@ -54,7 +54,6 @@
       margin-bottom: 30px;
     }
 
-    /* Gallery Styles */
     .gallery-container {
       margin: 30px 0;
     }
@@ -89,10 +88,17 @@
       transition: color 0.2s ease;
     }
 
-    .arrow.left { left: -50px; }
-    .arrow.right { right: -50px; }
+    .arrow.left {
+      left: -50px;
+    }
 
-    .arrow:hover { color: #2c3e50; }
+    .arrow.right {
+      right: -50px;
+    }
+
+    .arrow:hover {
+      color: #2c3e50;
+    }
 
     .thumbnails {
       display: flex;
@@ -144,12 +150,12 @@
       background-color: #1e8449;
     }
 
-    .paypal-button {
+    .checkout-btn-container {
       text-align: center;
       margin: 20px 0 40px;
     }
 
-    .paypal-button button {
+    .checkout-btn-container button {
       background-color: #2980b9;
       border: none;
       padding: 12px 25px;
@@ -162,7 +168,7 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     }
 
-    .paypal-button button:hover {
+    .checkout-btn-container button:hover {
       background-color: #1c5980;
     }
 
@@ -179,14 +185,15 @@
       font-weight: 600;
     }
 
-    a:hover { text-decoration: underline; }
+    a:hover {
+      text-decoration: underline;
+    }
 
     .back-link {
       text-align: center;
       margin-bottom: 40px;
     }
 
-    /* Cart button */
     .cart-link {
       position: fixed;
       top: 20px;
@@ -246,8 +253,8 @@
   </div>
 
   <!-- Go to Checkout button -->
-  <div class="paypal-button">
-    <button type="button" onclick="addToCartAndCheckout()">Go to Checkout</button>
+  <div class="checkout-btn-container">
+    <button onclick="addToCartAndCheckout()">Go to Checkout</button>
   </div>
 
   <div class="back-link">
@@ -289,26 +296,23 @@
     showImage(currentIndex);
   }
 
-  // Add to Cart function
+  // --- Add to Cart with duplicate prevention ---
   function addToCart() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({
-      name: "Red Embroidered Jeans",
-      price: 130.00,
-      url: "red-jeans.html"
-    });
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const exists = cart.some(item => item.name === "Red Embroidered Jeans");
+    if (!exists) {
+      cart.push({
+        name: "Red Embroidered Jeans",
+        price: 130.00,
+        url: "red-jeans.html"
+      });
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
   }
 
-  // Add to Cart and go to Checkout
+  // --- Add to Cart and Go to Checkout ---
   function addToCartAndCheckout() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({
-      name: "Red Embroidered Jeans",
-      price: 130.00,
-      url: "red-jeans.html"
-    });
-    localStorage.setItem('cart', JSON.stringify(cart));
+    addToCart(); // ensure item is added only once
     window.location.href = "checkout.html";
   }
 
@@ -318,3 +322,4 @@
 
 </body>
 </html>
+
