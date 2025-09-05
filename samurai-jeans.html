@@ -82,20 +82,21 @@
     }
 
     .main-gallery {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 500px; /* fixed height for consistency */
+}
 
-    .main-gallery img {
-      height: 480px;
-      object-fit: contain;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 0 10px;
-      max-width: 100%;
-    }
+.main-gallery img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 0 10px;
+}
 
     .arrow {
       background: none;
