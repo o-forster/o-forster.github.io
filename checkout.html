@@ -25,7 +25,7 @@
       margin-bottom: 15px;
       font-size: 1.3rem;
       color: #2c3e50;
-      text-align: center; /* Centered heading */
+      text-align: center;
     }
 
     table {
@@ -59,7 +59,7 @@
     .total {
       font-size: 1.2rem;
       font-weight: 600;
-      text-align: center; /* Centered total */
+      text-align: center;
       margin-top: 10px;
     }
 
@@ -71,8 +71,8 @@
     }
 
     .paypal-btn {
-      background: #ffc439;
-      color: #111;
+      background: #27ae60;
+      color: #fff;
       font-size: 1rem;
       padding: 12px 25px;
       border: none;
@@ -88,7 +88,7 @@
     }
 
     .paypal-btn:hover {
-      background: #f4b400;
+      background: #1e8449;
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
@@ -132,7 +132,6 @@
   <h2>Payment Options</h2>
   <button class="paypal-btn">Checkout with PayPal</button>
 
-  <!-- Return button -->
   <a href="cart.html" class="return-btn">← Back to Cart</a>
 
   <footer>
@@ -141,13 +140,20 @@
 
   <script>
     const orderSummary = document.getElementById('order-summary');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    if (cart.length === 0) {
+    // Use checkoutTemp if it exists for single-item checkout
+    let checkoutCart = JSON.parse(localStorage.getItem('checkoutTemp'));
+    if (checkoutCart) {
+      localStorage.removeItem('checkoutTemp'); // clear after reading
+    } else {
+      checkoutCart = JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
+    if (checkoutCart.length === 0) {
       orderSummary.innerHTML = '<p class="empty">Your cart is empty.</p>';
     } else {
       let html = '<table><tr><th>Item</th><th>Price</th></tr>';
-      cart.forEach(item => {
+      checkoutCart.forEach(item => {
         html += `
           <tr>
             <td><a href="${item.url}">${item.name}</a></td>
@@ -157,7 +163,7 @@
       });
       html += '</table>';
 
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const total = checkoutCart.reduce((sum, item) => sum + item.price, 0);
       html += `<p class="total">Total: £${total.toFixed(2)}</p>`;
 
       orderSummary.innerHTML = html;
@@ -166,4 +172,5 @@
 
 </body>
 </html>
+
 
