@@ -127,6 +127,11 @@
 
   <h1>Checkout</h1>
 
+<div id="cart-container"></div>
+<div id="shipping-container"></div>
+<div id="total-display" style="font-weight:600; text-align:center; margin:20px 0;"></div>
+
+  
   <div id="order-summary" aria-live="polite"></div>
 
   <h2>Payment Options</h2>
@@ -170,6 +175,52 @@
     }
   </script>
 
+<script>
+  // Get cart and shipping info from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
+  let shippingCost = Number(localStorage.getItem('shippingCost')) || 0;
+
+  // Display cart items
+  const cartContainer = document.getElementById('cart-container');
+  if (cartContainer) {
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    } else {
+      let html = '<table><tr><th>Item</th><th>Price</th></tr>';
+      cart.forEach(item => {
+        html += `
+          <tr>
+            <td>${item.img ? `<img src="${item.img}" alt="${item.name}">` : ""}${item.name}</td>
+            <td>£${item.price.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+      html += '</table>';
+      cartContainer.innerHTML = html;
+    }
+  }
+
+  // Display shipping info
+  const shippingContainer = document.getElementById('shipping-container');
+  if (shippingContainer && Object.keys(shippingInfo).length > 0) {
+    shippingContainer.innerHTML = `
+      <h3>Shipping Information</h3>
+      <p>${shippingInfo.address1}${shippingInfo.address2 ? ', ' + shippingInfo.address2 : ''}</p>
+      <p>${shippingInfo.city}, ${shippingInfo.postcode}</p>
+      <p>${shippingInfo.country}</p>
+    `;
+  }
+
+  // Display total including shipping
+  const totalContainer = document.getElementById('total-display');
+  if (totalContainer) {
+    const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+    totalContainer.innerText = `Total (including shipping): £${(cartTotal + shippingCost).toFixed(2)}`;
+  }
+</script>
+
+  
 </body>
 </html>
 
