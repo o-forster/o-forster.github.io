@@ -87,24 +87,145 @@
     }
 
     /* -------- your original styles for site -------- */
-    .cart-link { position: fixed; top: 20px; right: 20px; background: #2980b9; color: #fff; padding: 10px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.15); transition: background-color 0.3s ease, box-shadow 0.3s ease; z-index: 1000; }
-    .cart-link:hover { background-color: #1c5980; box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
-    header { text-align: center; margin-bottom: 40px; }
-    header .brand-bubble { display: inline-block; font-size: 2.2rem; border-radius: 30px; }
-    header .tagline { margin-top: 4px; font-weight: 400; }
-    nav { margin-bottom: 40px; text-align: center; }
-    nav a { margin: 0 18px; text-decoration: none; color: #2980b9; font-weight: 600; }
-    nav a:hover { color: #1c5980; text-decoration: underline; }
-    #products { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
-    .product { background: white; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); padding: 20px; border: 1px solid #e0ddd8; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .product:hover { transform: translateY(-6px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
-    .product img { height: 320px; display: block; margin: 0 auto 15px; border-radius: 6px; }
-    .price { font-size: 22px; font-weight: 700; margin: 0 0 15px 0; color: #2980b9; text-align: center; }
-    button { background-color: #2980b9; border: none; padding: 12px 25px; font-weight: 600; color: #fff; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease, box-shadow 0.3s ease; width: 100%; max-width: 220px; margin: 0 auto; display: block; }
-    button:hover { background-color: #1c5980; box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
-    section { margin-bottom: 50px; line-height: 1.6; color: #555; padding: 0 10px; }
-    section#about, section#shipping, section#contact { max-width: 700px; margin: 40px auto; background: white; padding: 25px 30px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); }
-    footer { text-align: center; font-size: 13px; color: #999; margin-top: 60px; padding-bottom: 20px; }
+    .cart-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2980b9;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+    .cart-link:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    header .brand-bubble {
+      display: inline-block;
+      font-size: 2.2rem;
+      border-radius: 30px;
+    }
+    header .tagline {
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    nav {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 18px;
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #1c5980;
+      text-decoration: underline;
+    }
+    #products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .product {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e0ddd8;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .product img {
+      height: 320px;
+      display: block;
+      margin: 0 auto 15px;
+      border-radius: 6px;
+    }
+
+    .product h3 {
+      margin: 0 0 10px 0;
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 15px 0;
+      color: #2980b9;
+      text-align: center;
+    }
+
+    .view-btn {
+      background-color: #2980b9;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 220px;
+      margin: 0 auto;
+      display: block;
+      text-align: center;
+    }
+
+    .view-btn:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    section {
+      margin-bottom: 50px;
+      line-height: 1.6;
+      color: #555;
+      padding: 0 10px;
+    }
+    section#about, section#shipping, section#contact {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      margin-top: 60px;
+      padding-bottom: 20px;
+    }
   </style>
 </head>
 <body>
@@ -137,23 +258,23 @@
     </nav>
 
     <section id="products">
-      <div class="product">
-        <a href="red-jeans.html">
+      <a href="red-jeans.html" class="product-link">
+        <div class="product">
           <img src="https://i.imgur.com/cngu4MM.jpeg" alt="Red Embroidered Jeans, front view" loading="lazy" />
           <h3>Red Embroidered Jeans</h3>
-        </a>
-        <p class="price">£130.00</p>
-        <a href="red-jeans.html"><button>View Details</button></a>
-      </div>
+          <p class="price">£130.00</p>
+          <div class="view-btn">View Details</div>
+        </div>
+      </a>
 
-      <div class="product">
-        <a href="samurai-jeans.html">
+      <a href="samurai-jeans.html" class="product-link">
+        <div class="product">
           <img src="https://i.imgur.com/NvHK5Jx.jpeg" alt="Samurai Embroidered Jeans, full view" loading="lazy" />
           <h3>Samurai Embroidered Jeans</h3>
-        </a>
-        <p class="price">£110.00</p>
-        <a href="samurai-jeans.html"><button>View Details</button></a>
-      </div>
+          <p class="price">£110.00</p>
+          <div class="view-btn">View Details</div>
+        </div>
+      </a>
     </section>
 
     <section id="about">
@@ -205,4 +326,6 @@
   </script>
 </body>
 </html>
+
+
 
